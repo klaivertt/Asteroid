@@ -2,37 +2,19 @@
 #define MENU_H
 
 #include "Common.h"
-#include "Animations.h"
+#include "GameState.h"
+#include "Game.h"
 
-#define MAX_BUTTONS 5
-
-typedef struct Image
+typedef struct MenuData
 {
 	sfTexture* texture;
 	sfSprite* sprite;
-}Image;
-
-typedef struct Button
-{
-	Image image;
-	sfRectangleShape* rectangle;
-	sfText* text;
-}Button;
-
-typedef struct Menu
-{
-	sfFont* font;
-	Image background;
-	Animation playerIdle;
-	Animation* currentAnim;
-	Button buttons[MAX_BUTTONS];
-	int currentButton;
-}Menu;
+}MenuData;
 
 void LoadMenu(void);
-void OnKeyPressedMenu(sfKeyEvent _key, sfRenderWindow* const _render);
-void UpdateMenu(float);
-void DrawMenu(sfRenderWindow*);
-void CleanMenu(void);
-void CleanupMenu();
-#endif
+void KeyPressedMenu(sfRenderWindow* const _renderWindow, sfKeyEvent _key);
+void UpdateMenu(sfRenderWindow* const _renderWindow, float _dt);
+void DrawMenu(sfRenderWindow* const _renderWindow);
+void CleanupMenu(void);
+
+#endif // !MENU_H

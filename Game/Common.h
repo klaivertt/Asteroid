@@ -1,33 +1,16 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef COMMON_H
+#define COMMON_H
 
-// Dépendance de base
-#include <stdlib.h>
 #include <stdio.h>
-#define _USE_MATH_DEFINES
-#include <math.h>
-
-// Dépendance de la CSFML
+#include <stdlib.h>
+#include <process.h>
 #include <SFML/Graphics.h>
-#include <SFML/Window.h>
-#include <SFML/System.h>
 #include <SFML/Audio.h>
 
-// Define de base
-#define SCREEN_W 1080
-#define SCREEN_H 948
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
+#define BPP 32
 
-#define GAME_NAME "DOOM"
-#define GAME_VERSION "0.0.1"
+#define GAME_NAME "Asteroid"
 
-#define MAX_FPS 120
-#define VSYNC sfFalse
-
-
-typedef struct Images
-{
-	sfTexture* texture;
-	sfSprite* sprite;
-}Images;
-
-#endif
+#endif // !COMMON_H

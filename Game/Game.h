@@ -2,17 +2,17 @@
 #define GAME_H
 
 #include "Common.h"
+#include "GameState.h"
+#include "Menu.h"
+#include "GameOver.h"
 
-typedef struct Game
-{
-	float score;
-}Game;
+#include "Player.h"
+#include "Bullet.h"
 
 void LoadGame(void);
-void UpdateGame(float, sfRenderWindow*);
-void OnKeyPressedGame(sfKeyEvent, sfRenderWindow*);
-void OnMousePressedGame(sfMouseButtonEvent, sfRenderWindow*);
-void DrawGame(sfRenderWindow*);
-void CleanupGame();
-#endif
+void KeyPressedGame(sfKeyEvent _key);
+void UpdateGame(sfRenderWindow* const _renderWindow, float _dt);
+void DrawGame(sfRenderWindow* const _renderWindow);
+void CleanupGame(void);
 
+#endif // !GAME_H

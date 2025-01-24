@@ -1,20 +1,21 @@
-﻿  Animation.c
-  Collision.c
-C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\base code\Game\Animation.c(14,23): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
-C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\base code\Game\Animation.c(15,22): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
-C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\base code\Game\Animation.c(46,32): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
-C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\base code\Game\Animation.c(62,31): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
-C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\base code\Game\Animation.c(78,29): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
+﻿  Collision.c
   Game.c
   main.c
-C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\base code\Game\main.c(164,19): warning C4047: 'fonction' : les niveaux d'indirection de 'sfRenderWindow *' et de 'sfRenderWindow **' sont différents
-C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\base code\Game\main.c(164,19): warning C4024: 'UpdateGame' : types différents pour le paramètre formel et réel 2
   Menu.c
-C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\base code\Game\Menu.c(115,89): warning C4305: 'initialisation' : troncation de 'double' à 'float'
-C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\base code\Game\Menu.c(153,42): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
   Player.c
   Génération de code en cours...
-main.obj : error LNK2019: symbole externe non résolu SetGameState référencé dans la fonction Load
+Game.obj : error LNK2019: symbole externe non résolu SetGameState référencé dans la fonction KeyPressedGame
+main.obj : error LNK2001: symbole externe non résolu SetGameState
 Menu.obj : error LNK2001: symbole externe non résolu SetGameState
-main.obj : error LNK2019: symbole externe non résolu GetGameState référencé dans la fonction Draw
-C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\base code\x64\Debug\Game.exe : fatal error LNK1120: 2 externes non résolus
+Game.obj : error LNK2019: symbole externe non résolu LoadBullet référencé dans la fonction LoadGame
+Game.obj : error LNK2019: symbole externe non résolu UpdateBullet référencé dans la fonction UpdateGame
+Game.obj : error LNK2019: symbole externe non résolu DrawBullet référencé dans la fonction DrawGame
+Game.obj : error LNK2019: symbole externe non résolu CleanupBullet référencé dans la fonction CleanupGame
+main.obj : error LNK2019: symbole externe non résolu GetGameState référencé dans la fonction Cleanup
+main.obj : error LNK2019: symbole externe non résolu KeyPressedGameOver référencé dans la fonction KeyPressed
+main.obj : error LNK2019: symbole externe non résolu UpdateGameOver référencé dans la fonction Update
+main.obj : error LNK2019: symbole externe non résolu DrawGameOver référencé dans la fonction Draw
+main.obj : error LNK2019: symbole externe non résolu CleanupGameOver référencé dans la fonction Cleanup
+Player.obj : error LNK2019: symbole externe non résolu GetBulletCount référencé dans la fonction UpdateFireControl
+Player.obj : error LNK2019: symbole externe non résolu AddBullet référencé dans la fonction UpdateFireControl
+C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\Asteroid\x64\Debug\Game.exe : fatal error LNK1120: 12 externes non résolus

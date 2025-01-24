@@ -1,41 +1,43 @@
 #include "GameState.h"
 
-#include "../Game/Menu/Menu.h"
-#include "./Game/Game.h"
+GameState gameState;
 
-GameState state;
-
-void SetGameState(GameState _state)
+void SetGameState(GameState _gameState)
 {
-	switch (state)
+	switch (gameState)
 	{
+	case MENU:
+		CleanupMenu();
+		break;
+
 	case GAME:
 		CleanupGame();
 		break;
 
-	case MENU:
-
-		CleanupMenu();
+	case GAME_OVER:
+		CleanupGameOver();
 		break;
 	}
 
-	state = _state;
+	gameState = _gameState;
 
-	switch (state)
+	switch (gameState)
 	{
-	case GAME:
+	case MENU:
+		LoadMenu();
+		break;
 
+	case GAME:
 		LoadGame();
 		break;
 
-	case MENU:
-
-		LoadMenu();
+	case GAME_OVER:
+		LoadGameOver();
 		break;
 	}
 }
 
 GameState GetGameState(void)
 {
-    return state;
+	return gameState;
 }

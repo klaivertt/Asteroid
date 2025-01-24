@@ -1,49 +1,39 @@
 #include "Game.h"
-#include "Player.h"
 
-Game game = { 0 };
-
-void LoadBackground();
-
-#pragma region CoreGame
 void LoadGame(void)
 {
-
+	LoadPlayer();
+	LoadBullet();
 }
 
-void UpdateGame(float _dt, sfRenderWindow* _render)
+void KeyPressedGame(sfKeyEvent _key)
 {
-	UpdatePlayer(_dt);
-}
-
-void OnKeyPressedGame(sfKeyEvent _key, sfRenderWindow* _render)
-{
-	OnKeyPressedPlayer(_key);
 	switch (_key.code)
 	{
+	case sfKeyEscape:
+		SetGameState(MENU);
+		break;
+	case sfKeySpace:
+		break;
 	default:
 		break;
 	}
 }
 
-void OnMousePressedGame(sfMouseButtonEvent _mouse, sfRenderWindow* _render)
+void UpdateGame(sfRenderWindow* const _renderWindow, float _dt)
 {
+	UpdatePlayer(_dt);
+	UpdateBullet(_dt);
 }
 
-void DrawGame(sfRenderWindow* _render)
+void DrawGame(sfRenderWindow* const _renderWindow)
 {
-	DrawPlayer(_render);
+	DrawBullet(_renderWindow);
+	DrawPlayer(_renderWindow);
 }
 
-
-void CleanupGame()
+void CleanupGame(void)
 {
-
-}
-
-#pragma endregion
-
-void LoadBackground()
-{
-
+	CleanupPlayer();
+	CleanupBullet();
 }

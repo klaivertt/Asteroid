@@ -1,8 +1,0 @@
-
-*.vsidx
-.vs
-Game/x64
-x64/Debug/Game.pdb
-x64/Debug/Game.exe
-x64/Debug/Game.lib
-x64/Debug/Game.exp

@@ -2,32 +2,22 @@
 #define PLAYER_H
 
 #include "Common.h"
-#include "Animations.h"
-#include "Collision.h"
+#include "Bullet.h"
 
-typedef struct PlayerAnim
-{
-	Animation fall;
-	Animation land;
-	Animation idle;
-	Animation* current;
-}PlayerAnim;
+#define PLAYER_SPEED 600
+#define FIRE_RATE 0.1f
 
 typedef struct Player
 {
-	PlayerAnim anim;
-	int index;
-	sfVector2f velocity;
-	float speed;
-	int targetX;
-	sfBool moving;
-	sfBool left;
+	sfTexture* texture;
+	sfSprite* sprite;
+	sfBool canShoot;
+	float cooldown;
 }Player;
 
 void LoadPlayer(void);
-void UpdatePlayer(float);
-void DrawPlayer(sfRenderWindow*);
-void OnKeyPressedPlayer(sfKeyEvent);
+void UpdatePlayer(float _dt);
+void DrawPlayer(sfRenderWindow* const _renderWindow);
+void CleanupPlayer(void);
 
-#endif
-
+#endif // !PLAYER_H
