@@ -26,7 +26,7 @@ void ResetTimer(Timer* _timer)
 	_timer->current = 0;
 }
 
-void CleanupTimer(Timer* _timer)
+void CleanTimer(Timer* _timer)
 {
 	_timer->current = 0;
 	_timer->max = 0;

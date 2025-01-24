@@ -69,4 +69,13 @@ void DrawMenu(sfRenderWindow* const _renderWindow)
 
 void CleanupMenu(void)
 {
+	sfTexture_destroy(menuData.texture);
+	menuData.texture = NULL;
+
+	sfSprite_destroy(menuData.sprite);
+	menuData.sprite = NULL;
+
+	CleanupText(menuData.title);
+	CleanupText(menuData.play);
+	CleanupText(menuData.exit);
 }

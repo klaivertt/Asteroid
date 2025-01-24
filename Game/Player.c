@@ -9,7 +9,17 @@ void UpdateFireControl(void);
 void LoadPlayer(void)
 {
 	player.texture = sfTexture_createFromFile("Assets/Sprites/Ship/3.png", NULL);
+	if (!player.texture)
+	{
+		printf("Error loading player texture\n");
+		return EXIT_FAILURE;
+	}
 	player.sprite = sfSprite_create();
+	if (!player.sprite)
+	{
+		printf("Error creating player sprite\n");
+		return EXIT_FAILURE;
+	}
 	sfSprite_setTexture(player.sprite, player.texture, sfTrue);
 	sfFloatRect playerHitbox = sfSprite_getLocalBounds(player.sprite);
 	sfSprite_setOrigin(player.sprite, (sfVector2f) { playerHitbox.width / 2, playerHitbox.height / 2 });
