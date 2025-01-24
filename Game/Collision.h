@@ -19,7 +19,7 @@ sfBool CollisionRectRect(sfIntRect* const _rect1, sfIntRect* const _rect2);
 // * @param _rect1 Pointer to the rectangle.
 // * @param _point The point to check.
 // * @return sfBool True if the point is inside the rectangle, false otherwise.
-sfBool CollisionPointRect(sfIntRect* const _rect1, sfVector2i const _point);
+sfBool CollisionPointRect(sfFloatRect* const _rect1, sfVector2i const _point);
 
 // * @brief Checks for collision between two circles.
 // *
@@ -38,8 +38,8 @@ sfBool ColisionCircleCircle(sfVector2f _center1, float _radius1, sfVector2f _cen
 // *
 // * @param _center The center of the circle.
 // * @param _radius The radius of the circle.
-// * @param _rect Pointer to the rectangle.
+// * @param _rect float rect of the rectangle.
 // * @return sfBool True if the circle intersects the rectangle, false otherwise.
-sfBool CollisionCircleRect(sfVector2f _center, float _radius, sfIntRect* const _rect);
+sfBool CollisionCircleRect(sfVector2f _center, float _radius, sfFloatRect* const _rect);
 #endif
 

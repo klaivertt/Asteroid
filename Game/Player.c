@@ -6,19 +6,25 @@ void MovePlayer(float _dt);
 void UpdateCooldown(float _dt);
 void UpdateFireControl(void);
 
+int GetPlayerHealth(void)
+{
+	return player.health;
+}
+
 void LoadPlayer(void)
 {
 	player.texture = sfTexture_createFromFile("Assets/Sprites/Ship/3.png", NULL);
 	if (!player.texture)
 	{
 		printf("Error loading player texture\n");
-		return EXIT_FAILURE;
+		return;
 	}
 	player.sprite = sfSprite_create();
 	if (!player.sprite)
 	{
 		printf("Error creating player sprite\n");
-		return EXIT_FAILURE;
+		player.texture = NULL;
+		return;
 	}
 	sfSprite_setTexture(player.sprite, player.texture, sfTrue);
 	sfFloatRect playerHitbox = sfSprite_getLocalBounds(player.sprite);
@@ -28,6 +34,7 @@ void LoadPlayer(void)
 	player.canShoot = sfTrue;
 	player.cooldown = FIRE_RATE;
 	player.direction = (sfVector2f){ 0, 0 };
+	player.health = PLAYER_HEALTH;
 }
 
 void UpdatePlayer(float _dt)
@@ -63,13 +70,13 @@ void MovePlayer(float _dt)
 		rotation = -5;
 	}
 
-	sfSprite_rotate(player.sprite, rotation);
+	sfSprite_rotate(player.sprite, (float)rotation);
 
 	if (sfKeyboard_isKeyPressed(sfKeyZ))
 	{
 		sfVector2f newDirection = (sfVector2f){
-			sinf(sfSprite_getRotation(player.sprite) * (M_PI / 180)),
-			-cosf(sfSprite_getRotation(player.sprite) * (M_PI / 180))
+			sinf(sfSprite_getRotation(player.sprite) * (float)(M_PI / 180)),
+			-cosf(sfSprite_getRotation(player.sprite) * (float)(M_PI / 180))
 		};
 
 		player.direction = (sfVector2f){ newDirection.x + player.direction.x, newDirection.y + player.direction.y };

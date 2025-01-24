@@ -8,18 +8,19 @@ void LoadMenu(void)
 	if (!menuData.texture)
 	{
 		printf("Error loading menu texture\n");
-		return EXIT_FAILURE;
+		return;
 	}
 	menuData.sprite = sfSprite_create();
 	sfSprite_setTexture(menuData.sprite, menuData.texture, sfTrue);
 	sfSprite_scale(menuData.sprite, (sfVector2f) { 2, 2 });
 
-	sfVector2u textureSize = sfTexture_getSize(menuData.texture);
+	sfVector2u textureSize;
+	textureSize = sfTexture_getSize(menuData.texture);	
 	menuData.title = InitText(GAME_NAME, 72, (sfVector2f) { (SCREEN_WIDTH / 2), 100 });
 	if (!menuData.title)
 	{
 		printf("Error loading menu title\n");
-		return EXIT_FAILURE;
+		return;
 	}
 	SetTextOrigin(menuData.title, (sfVector2f) { 2, 2 });
 
@@ -27,7 +28,7 @@ void LoadMenu(void)
 	if (!menuData.play)
 	{
 		printf("Error loading menu play text\n");
-		return EXIT_FAILURE;
+		return;
 	}
 	SetTextOrigin(menuData.play, (sfVector2f) { 2, 2 });
 
@@ -35,7 +36,7 @@ void LoadMenu(void)
 	if (!menuData.exit)
 	{
 		printf("Error loading menu exit text\n");
-		return EXIT_FAILURE;
+		return;
 	}
 	SetTextOrigin(menuData.exit, (sfVector2f) { 2, 2 });
 }
@@ -75,7 +76,7 @@ void CleanupMenu(void)
 	sfSprite_destroy(menuData.sprite);
 	menuData.sprite = NULL;
 
-	CleanupText(menuData.title);
-	CleanupText(menuData.play);
-	CleanupText(menuData.exit);
+	CleanupText(&menuData.title);
+	CleanupText(&menuData.play);
+	CleanupText(&menuData.exit);
 }

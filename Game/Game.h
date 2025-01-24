@@ -8,6 +8,7 @@
 
 #include "Player.h"
 #include "Bullet.h"
+#include "HUD.h"
 
 void LoadGame(void);
 void KeyPressedGame(sfKeyEvent _key);

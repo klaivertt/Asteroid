@@ -51,6 +51,6 @@ void ResetTimer(Timer* _timer);
 //* Resets the current time and maximum duration of the timer to zero.
 //*
 //* @param _timer Pointer to the Timer to clean up.
-void CleanupTimer(Timer* _timer);
+void CleanTimer(Timer* _timer);
 
 #endif

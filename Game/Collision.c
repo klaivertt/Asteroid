@@ -14,7 +14,7 @@ sfBool CollisionRectRect(sfIntRect* const _rect1, sfIntRect* const _rect2)
     
 }
 
-sfBool CollisionPointRect(sfIntRect* const _rect1, sfVector2i const _point)
+sfBool CollisionPointRect(sfFloatRect* const _rect1, sfVector2i const _point)
 {
 	if (sfFloatRect_contains(_rect1, (float)_point.x, (float)_point.x))
 	{
@@ -41,7 +41,7 @@ sfBool ColisionCircleCircle(sfVector2f _center1, float _radius1, sfVector2f _cen
 	
 }
 
-sfBool CollisionCircleRect(sfVector2f _center, float _radius, sfIntRect* const _rect)
+sfBool CollisionCircleRect(sfVector2f _center, float _radius, sfFloatRect* const _rect)
 {
 	sfVector2f closestPoint = { 0 };
 	closestPoint.x = fmaxf(_rect->left, fminf(_center.x, _rect->left + _rect->width));

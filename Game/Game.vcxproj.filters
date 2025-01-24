@@ -57,6 +57,9 @@
     <ClCompile Include="Text.c">
       <Filter>Fichiers sources\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="HUD.c">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="Text.h">
       <Filter>Fichiers d%27en-tête\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
