@@ -145,6 +145,8 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="Menu.c" />
     <ClCompile Include="Player.c" />
+    <ClCompile Include="Text.c" />
+    <ClCompile Include="Timer.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
@@ -155,6 +157,8 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Text.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

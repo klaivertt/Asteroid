@@ -9,7 +9,7 @@ void UpdateFireControl(void);
 
 void LoadPlayer(void)
 {
-	player.texture = sfTexture_createFromFile("Assets/Sprites/Ship.png", NULL);
+	player.texture = sfTexture_createFromFile("Assets/Sprites/Ship/3.png", NULL);
 	player.sprite = sfSprite_create();
 	sfSprite_setTexture(player.sprite, player.texture, sfTrue);
 	sfFloatRect playerHitbox = sfSprite_getLocalBounds(player.sprite);
@@ -111,7 +111,7 @@ void UpdateFireControl(void)
 {
 	if (sfKeyboard_isKeyPressed(sfKeySpace))
 	{
-		if (player.canShoot && GetBulletCount() < BULLET_MAX)
+		if (player.canShoot && GetBulletNumb() < BULLET_MAX)
 		{
 			sfFloatRect playerHitbox = sfSprite_getGlobalBounds(player.sprite);
 			sfVector2f shotPosition = { playerHitbox.left + playerHitbox.width / 2, playerHitbox.top };

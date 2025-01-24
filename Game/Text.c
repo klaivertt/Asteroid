@@ -4,7 +4,7 @@ TextManager text = { 0 };
 
 void LoadTextManager(void)
 {
-	text.font = sfFont_createFromFile("Assets/Fonts/Prototype.ttf");
+	text.font = sfFont_createFromFile("Assets/Fonts/Asteroid 7337.ttf");
 }
 sfText* InitText(const char* _string, unsigned int _fontSize, sfVector2f _position)
 {

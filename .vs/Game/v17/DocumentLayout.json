@@ -1,0 +1,60 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Etudiant1\\Desktop\\abosio\\Prog1\\Csfml\\Asteroid\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DD11DD36-7A37-46F4-A165-D02D2B64873A}|Game\\Game.vcxproj|C:\\Users\\Etudiant1\\Desktop\\abosio\\Prog1\\Csfml\\Asteroid\\Game\\Menu.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD11DD36-7A37-46F4-A165-D02D2B64873A}|Game\\Game.vcxproj|solutionrelative:Game\\Menu.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DD11DD36-7A37-46F4-A165-D02D2B64873A}|Game\\Game.vcxproj|C:\\Users\\Etudiant1\\Desktop\\abosio\\Prog1\\Csfml\\Asteroid\\Game\\Menu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{DD11DD36-7A37-46F4-A165-D02D2B64873A}|Game\\Game.vcxproj|solutionrelative:Game\\Menu.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Menu.h",
+              "DocumentMoniker": "C:\\Users\\Etudiant1\\Desktop\\abosio\\Prog1\\Csfml\\Asteroid\\Game\\Menu.h",
+              "RelativeDocumentMoniker": "Game\\Menu.h",
+              "ToolTip": "C:\\Users\\Etudiant1\\Desktop\\abosio\\Prog1\\Csfml\\Asteroid\\Game\\Menu.h",
+              "RelativeToolTip": "Game\\Menu.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-01-24T11:14:11.535Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Menu.c",
+              "DocumentMoniker": "C:\\Users\\Etudiant1\\Desktop\\abosio\\Prog1\\Csfml\\Asteroid\\Game\\Menu.c",
+              "RelativeDocumentMoniker": "Game\\Menu.c",
+              "ToolTip": "C:\\Users\\Etudiant1\\Desktop\\abosio\\Prog1\\Csfml\\Asteroid\\Game\\Menu.c",
+              "RelativeToolTip": "Game\\Menu.c",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-01-24T11:14:16.643Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

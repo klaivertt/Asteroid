@@ -1,21 +1,2 @@
-﻿  Collision.c
-  Game.c
-  main.c
-  Menu.c
-  Player.c
-  Génération de code en cours...
-Game.obj : error LNK2019: symbole externe non résolu SetGameState référencé dans la fonction KeyPressedGame
-main.obj : error LNK2001: symbole externe non résolu SetGameState
-Menu.obj : error LNK2001: symbole externe non résolu SetGameState
-Game.obj : error LNK2019: symbole externe non résolu LoadBullet référencé dans la fonction LoadGame
-Game.obj : error LNK2019: symbole externe non résolu UpdateBullet référencé dans la fonction UpdateGame
-Game.obj : error LNK2019: symbole externe non résolu DrawBullet référencé dans la fonction DrawGame
-Game.obj : error LNK2019: symbole externe non résolu CleanupBullet référencé dans la fonction CleanupGame
-main.obj : error LNK2019: symbole externe non résolu GetGameState référencé dans la fonction Cleanup
-main.obj : error LNK2019: symbole externe non résolu KeyPressedGameOver référencé dans la fonction KeyPressed
-main.obj : error LNK2019: symbole externe non résolu UpdateGameOver référencé dans la fonction Update
-main.obj : error LNK2019: symbole externe non résolu DrawGameOver référencé dans la fonction Draw
-main.obj : error LNK2019: symbole externe non résolu CleanupGameOver référencé dans la fonction Cleanup
-Player.obj : error LNK2019: symbole externe non résolu GetBulletCount référencé dans la fonction UpdateFireControl
-Player.obj : error LNK2019: symbole externe non résolu AddBullet référencé dans la fonction UpdateFireControl
-C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\Asteroid\x64\Debug\Game.exe : fatal error LNK1120: 12 externes non résolus
+﻿  Player.c
+  Game.vcxproj -> C:\Users\Etudiant1\Desktop\abosio\Prog1\Csfml\Asteroid\x64\Debug\Game.exe

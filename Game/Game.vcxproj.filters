@@ -51,6 +51,12 @@
     <ClCompile Include="Player.c">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.c">
+      <Filter>Fichiers sources\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.c">
+      <Filter>Fichiers sources\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -76,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Fichiers d%27en-tête\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Fichiers d%27en-tête\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
