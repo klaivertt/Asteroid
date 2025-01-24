@@ -3,7 +3,6 @@
 Player player;
 
 void MovePlayer(float _dt);
-void CheckCollisionPlayerScreen(void);
 void UpdateCooldown(float _dt);
 void UpdateFireControl(void);
 
@@ -18,14 +17,14 @@ void LoadPlayer(void)
 
 	player.canShoot = sfTrue;
 	player.cooldown = FIRE_RATE;
+	player.direction = (sfVector2f){ 0, 0 };
 }
 
 void UpdatePlayer(float _dt)
 {
 	MovePlayer(_dt);
-	CheckCollisionPlayerScreen();
 	UpdateCooldown(_dt);
-	UpdateFireControl();
+	UpdateFireControl(_dt);
 }
 
 void DrawPlayer(sfRenderWindow* const _renderWindow)
@@ -44,54 +43,39 @@ void CleanupPlayer(void)
 
 void MovePlayer(float _dt)
 {
-	sfVector2f directionAxis = { 0 };
-
+	int rotation = 0;
 	if (sfKeyboard_isKeyPressed(sfKeyD))
 	{
-		directionAxis.x++;
+		rotation = 5;
 	}
 	if (sfKeyboard_isKeyPressed(sfKeyQ))
 	{
-		directionAxis.x--;
+		rotation = -5;
 	}
 
-	if (sfKeyboard_isKeyPressed(sfKeyS))
-	{
-		directionAxis.y++;
-	}
+	sfSprite_rotate(player.sprite, rotation);
+
 	if (sfKeyboard_isKeyPressed(sfKeyZ))
 	{
-		directionAxis.y--;
+		sfVector2f newDirection = (sfVector2f){
+			sinf(sfSprite_getRotation(player.sprite) * (M_PI / 180)),
+			-cosf(sfSprite_getRotation(player.sprite) * (M_PI / 180))
+		};
+
+		player.direction = (sfVector2f){ newDirection.x + player.direction.x, newDirection.y + player.direction.y };
+
+		if (player.direction.x > MAX_ACCELERATE_FORCE)
+			player.direction.x = MAX_ACCELERATE_FORCE;
+		else if (player.direction.x < -MAX_ACCELERATE_FORCE)
+			player.direction.x = -MAX_ACCELERATE_FORCE;
+
+		if (player.direction.y > MAX_ACCELERATE_FORCE)
+			player.direction.y = MAX_ACCELERATE_FORCE;
+		else if (player.direction.y < -MAX_ACCELERATE_FORCE)
+			player.direction.y = -MAX_ACCELERATE_FORCE;
 	}
 
-	if (directionAxis.x != 0 || directionAxis.y != 0)
-	{
-		float direction = atan2f(directionAxis.y, directionAxis.x);
-
-		sfVector2f playerMove = { PLAYER_SPEED * cosf(direction) * _dt, PLAYER_SPEED * sinf(direction) * _dt };
-		sfSprite_move(player.sprite, playerMove);
-	}
-}
-
-void CheckCollisionPlayerScreen(void)
-{
-	sfFloatRect hitbox = sfSprite_getGlobalBounds(player.sprite);
-	if (hitbox.left < 0)
-	{
-		sfSprite_move(player.sprite, (sfVector2f) { 0 - hitbox.left, 0 });
-	}
-	if (hitbox.left + hitbox.width > SCREEN_WIDTH)
-	{
-		sfSprite_move(player.sprite, (sfVector2f) { SCREEN_WIDTH - (hitbox.left + hitbox.width), 0 });
-	}
-	if (hitbox.top < 0)
-	{
-		sfSprite_move(player.sprite, (sfVector2f) { 0, 0 - hitbox.top });
-	}
-	if (hitbox.top + hitbox.height > SCREEN_HEIGHT)
-	{
-		sfSprite_move(player.sprite, (sfVector2f) { 0, SCREEN_HEIGHT - (hitbox.top + hitbox.height) });
-	}
+	sfSprite_move(player.sprite, (sfVector2f) { player.direction.x* PLAYER_BASE_SPEED* _dt, player.direction.y* PLAYER_BASE_SPEED* _dt });
 }
 
 void UpdateCooldown(float _dt)

@@ -4,8 +4,9 @@
 #include "Common.h"
 #include "Bullet.h"
 
-#define PLAYER_SPEED 600
-#define FIRE_RATE 0.1f
+#define PLAYER_BASE_SPEED 5
+#define MAX_ACCELERATE_FORCE 40
+#define FIRE_RATE 0.15f
 
 typedef struct Player
 {
@@ -13,6 +14,7 @@ typedef struct Player
 	sfSprite* sprite;
 	sfBool canShoot;
 	float cooldown;
+	sfVector2f direction;
 }Player;
 
 void LoadPlayer(void);

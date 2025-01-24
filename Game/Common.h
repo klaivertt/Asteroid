@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include <process.h>
 #include <SFML/Graphics.h>
 #include <SFML/Audio.h>

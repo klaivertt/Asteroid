@@ -23,7 +23,7 @@ void LoadMenu(void)
 	}
 	SetTextOrigin(menuData.title, (sfVector2f) { 2, 2 });
 
-	menuData.play = InitText("Press 'Space'to Play", 38, (sfVector2f) { (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) });
+	menuData.play = InitText("Press 'Space' to Play", 38, (sfVector2f) { (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) });
 	if (!menuData.play)
 	{
 		printf("Error loading menu play text\n");
