@@ -7,8 +7,8 @@
 #include <SFML/Graphics.h>
 #include <SFML/Audio.h>
 
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 768
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
 #define BPP 32
 
 #define GAME_NAME "Asteroid"

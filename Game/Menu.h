@@ -4,11 +4,15 @@
 #include "Common.h"
 #include "GameState.h"
 #include "Game.h"
+#include "Text.h"
 
 typedef struct MenuData
 {
 	sfTexture* texture;
 	sfSprite* sprite;
+	sfText* title;
+	sfText* play;
+	sfText* exit;
 }MenuData;
 
 void LoadMenu(void);

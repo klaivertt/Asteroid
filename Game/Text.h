@@ -35,4 +35,20 @@ sfText* InitTextWithValue(const char* _string, int _value, unsigned int _fontSiz
 // *@param _value: An integer value to append to the string
 void UpdateText(sfText** _text, const char* _string, int _value);
 
+// *@brief Function to clean the text object
+// *
+// *@param _text: Pointer to the sfText object to clean
+void CleanupText(sfText** _text);
+
+// *@brief Function to resize the text object
+// *
+// *@param _text: Pointer to the sfText object to resize
+void ResizeText(sfText* _text, unsigned int _fontSize);
+
+// *@brief Function to set the origin of the text object
+// *
+// *@param _text: Pointer to the sfText object to set the origin
+// *@param _origin: The origin of the text object
+void SetTextOrigin(sfText* _text, sfVector2f _origin);
+
 #endif

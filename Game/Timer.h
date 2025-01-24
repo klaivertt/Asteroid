@@ -39,4 +39,18 @@ void UpdateTimer(float _dt, Timer* _timer);
 //sfBool IsTimerFinished(Timer * _timer);
 sfBool IsTimerFinished(Timer* _timer);
 
+//* @brief Resets the Timer.
+//*
+//* Sets the current time of the timer to zero.
+//*
+//* @param _timer Pointer to the Timer to reset.
+void ResetTimer(Timer* _timer);
+
+//* @brief Cleans up the Timer.
+//*
+//* Resets the current time and maximum duration of the timer to zero.
+//*
+//* @param _timer Pointer to the Timer to clean up.
+void CleanupTimer(Timer* _timer);
+
 #endif
