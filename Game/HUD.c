@@ -25,6 +25,7 @@ void LoadHud(void)
 		exit(EXIT_FAILURE);
 	}
 
+	sfVector2f startPosition = { (SCREEN_WIDTH - (PLAYER_MAX_HEALTH * 50)) / 2, 50 };
 	for (int i = 0; i < PLAYER_MAX_HEALTH; i++)
 	{
 		hudData.healthBar[i] = sfSprite_create();
@@ -37,7 +38,7 @@ void LoadHud(void)
 			sfSprite_setTexture(hudData.healthBar[i], hudData.emptylLifeTexture, sfTrue);
 		}
 
-		sfSprite_setPosition(hudData.healthBar[i], (sfVector2f) { SCREEN_WIDTH - 50 - (i * 50), 50 });
+		sfSprite_setPosition(hudData.healthBar[i], (sfVector2f) { startPosition.x + (i * 50), startPosition.y });
 	}
 	hudData.score = 0;
 }

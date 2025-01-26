@@ -58,7 +58,7 @@
       <Filter>Fichiers sources\Utilities</Filter>
     </ClCompile>
     <ClCompile Include="HUD.c">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

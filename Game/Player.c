@@ -41,7 +41,7 @@ void UpdatePlayer(float _dt)
 {
 	MovePlayer(_dt);
 	UpdateCooldown(_dt);
-	UpdateFireControl(_dt);
+	UpdateFireControl();
 }
 
 void DrawPlayer(sfRenderWindow* const _renderWindow)
