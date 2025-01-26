@@ -8,7 +8,7 @@ void SortBulletList(unsigned int _index);
 
 void LoadBullet(void)
 {
-	bulletTexture = sfTexture_createFromFile("Assets/Sprites/Shot.png", NULL);
+	bulletTexture = sfTexture_createFromFile("Assets/Sprites/Shoot/1.png", NULL);
 	bulletCount = 0;
 }
 
@@ -20,8 +20,17 @@ void UpdateBullet(float _dt)
 		sfSprite_move(bulletList[i].sprite, (sfVector2f) { bulletList[i].velocity.x * _dt, bulletList[i].velocity.y * _dt });
 
 		// The bullet is outside the screen
-		sfFloatRect hitbox = sfSprite_getGlobalBounds(bulletList[i].sprite);
+		/*sfFloatRect hitbox = sfSprite_getGlobalBounds(bulletList[i].sprite);
 		if (hitbox.top + hitbox.height < 0)
+		{
+			sfSprite_destroy(bulletList[i].sprite);
+			bulletList[i].sprite = NULL;
+			SortBulletList(i);
+		}*/
+
+		// Bullet life time
+		bulletList[i].lifeTime -= _dt;
+		if (bulletList[i].lifeTime < 0)
 		{
 			sfSprite_destroy(bulletList[i].sprite);
 			bulletList[i].sprite = NULL;
@@ -57,7 +66,7 @@ unsigned int GetBulletNumb(void)
 	return bulletCount;
 }
 
-void AddBullet(sfVector2f _position)
+void AddBullet(sfVector2f _position, sfVector2f _direction)
 {
 	Bullet newBullet = { 0 };
 
@@ -67,8 +76,13 @@ void AddBullet(sfVector2f _position)
 	sfSprite_setOrigin(newBullet.sprite, (sfVector2f) { hitbox.width / 2, hitbox.height / 2 });
 	sfSprite_setPosition(newBullet.sprite, _position);
 
-	newBullet.velocity = (sfVector2f){ 0, -BULLET_SPEED };
+	// Normalize the direction
+	float magnitude = sqrtf(_direction.x * _direction.x + _direction.y * _direction.y);
+	sfVector2f normalizedDirection = { _direction.x / magnitude, _direction.y / magnitude };
 
+	newBullet.velocity = (sfVector2f){ normalizedDirection.x * BULLET_SPEED, normalizedDirection.y * BULLET_SPEED };
+
+	newBullet.lifeTime = 5.f;
 	bulletList[bulletCount] = newBullet;
 	bulletCount++;
 }

@@ -115,8 +115,13 @@ void UpdateFireControl(void)
 		if (player.canShoot && GetBulletNumb() < BULLET_MAX)
 		{
 			sfFloatRect playerHitbox = sfSprite_getGlobalBounds(player.sprite);
-			sfVector2f shotPosition = { playerHitbox.left + playerHitbox.width / 2, playerHitbox.top };
-			AddBullet(shotPosition);
+			sfVector2f shotPosition = { playerHitbox.left + playerHitbox.width / 2, playerHitbox.top + playerHitbox.height/2 };
+			
+			sfVector2f direction = (sfVector2f){
+			sinf(sfSprite_getRotation(player.sprite) * (float)(M_PI / 180)),
+			-cosf(sfSprite_getRotation(player.sprite) * (float)(M_PI / 180))
+			};
+			AddBullet(shotPosition, direction);
 
 			player.canShoot = sfFalse;
 		}
