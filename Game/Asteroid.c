@@ -9,7 +9,7 @@ void WaveCreate(void);
 void LoadAsteroid(void)
 {
 	LoadTexture();
-	asteroidManager.currentWave = 1;
+	asteroidManager.currentWave = 0;
 	asteroidManager.asteroidsNumb = 0;
 	WaveCreate();
 }
@@ -40,14 +40,14 @@ void LoadTexture(void)
 		return;
 	}
 
-	asteroidManager.textureMedium = sfTexture_createFromFile("Assets/Sprites/Background/Meteor2.png", NULL);
+	asteroidManager.textureMedium = sfTexture_createFromFile("Assets/Sprites/Background/Meteor4.png", NULL);
 	if (!asteroidManager.textureMedium)
 	{
 		printf("Error loading asteroid medium texture\n");
 		return;
 	}
 
-	asteroidManager.textureSmall = sfTexture_createFromFile("Assets/Sprites/Background/Meteor1.png", NULL);
+	asteroidManager.textureSmall = sfTexture_createFromFile("Assets/Sprites/Background/Meteor5.png", NULL);
 	if (!asteroidManager.textureSmall)
 	{
 		printf("Error loading asteroid small texture\n");
