@@ -3,6 +3,6 @@
 
 #include "Common.h"
 
-void DrawWraparound(sfRenderWindow* const _renderWindow, sfSprite* _sprite, sfVector2f _position);
+void DrawWraparound(sfRenderWindow* const _renderWindow, sfSprite* _sprite);
 
 #endif //!WRAPAROUND_H

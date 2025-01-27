@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "HUD.h"
+#include "Asteroid.h"
 
 void LoadGame(void);
 void KeyPressedGame(sfKeyEvent _key);

@@ -17,16 +17,10 @@ void UpdateBullet(float _dt)
 	for (int i = bulletCount - 1; i >= 0; i--)
 	{
 		// Bullet move
-		sfSprite_move(bulletList[i].sprite, (sfVector2f) { bulletList[i].velocity.x * _dt, bulletList[i].velocity.y * _dt });
+		sfSprite_move(bulletList[i].sprite, (sfVector2f) { bulletList[i].velocity.x* _dt, bulletList[i].velocity.y* _dt });
 
 		// Bullet life time
-		bulletList[i].lifeTime -= _dt;
-		if (bulletList[i].lifeTime < 0)
-		{
-			sfSprite_destroy(bulletList[i].sprite);
-			bulletList[i].sprite = NULL;
-			SortBulletList(i);
-		}
+
 
 		sfVector2f bulletPosition = sfSprite_getPosition(bulletList[i].sprite);
 		if (bulletPosition.x < 0)
@@ -45,9 +39,17 @@ void UpdateBullet(float _dt)
 		{
 			sfSprite_setPosition(bulletList[i].sprite, (sfVector2f) { bulletPosition.x, 0 });
 		}
+
+		bulletList[i].lifeTime -= _dt;
+		if (bulletList[i].lifeTime < 0)
+		{
+			sfSprite_destroy(bulletList[i].sprite);
+			bulletList[i].sprite = NULL;
+			SortBulletList(i);
+		}
 	}
 
-	printf("nombre de tirs : %u\n", bulletCount);
+	//printf("nombre de tirs : %u\n", bulletCount);
 }
 
 void DrawBullet(sfRenderWindow* const _renderWindow)
@@ -83,12 +85,13 @@ void AddBullet(sfVector2f _position, sfVector2f _direction)
 	sfSprite_setTexture(newBullet.sprite, bulletTexture, sfTrue);
 	sfFloatRect hitbox = sfSprite_getLocalBounds(newBullet.sprite);
 	sfSprite_setOrigin(newBullet.sprite, (sfVector2f) { hitbox.width / 2, hitbox.height / 2 });
-	sfVector2f newDirection = (sfVector2f){ _direction.x, _direction.y };
+	sfVector2f newDirection;
+	newDirection = (sfVector2f){ _direction.x, _direction.y };
 	sfSprite_setPosition(newBullet.sprite, _position);
 
 	newBullet.velocity = (sfVector2f){ _direction.x * BULLET_SPEED, _direction.y * BULLET_SPEED };
 
-	newBullet.lifeTime = 5.f;
+	newBullet.lifeTime = 2.5f;
 	bulletList[bulletCount] = newBullet;
 	bulletCount++;
 }

@@ -22,6 +22,7 @@ void LoadGame(void)
 	sfSprite_setScale(backgroundSprite, (sfVector2f) { 2, 2 });
 
 	LoadPlayer();
+	LoadAsteroid();
 	LoadBullet();
 	LoadHud();
 }
@@ -44,12 +45,14 @@ void UpdateGame(sfRenderWindow* const _renderWindow, float _dt)
 {
 	UpdatePlayer(_dt);
 	UpdateBullet(_dt);
+	UpdateAsteroid(_dt);
 }
 
 void DrawGame(sfRenderWindow* const _renderWindow)
 {
 	sfRenderWindow_drawSprite(_renderWindow, backgroundSprite, NULL);
 	DrawBullet(_renderWindow);
+	DrawAsteroid(_renderWindow);
 	DrawPlayer(_renderWindow);
 	DrawHud(_renderWindow);
 }
@@ -58,6 +61,7 @@ void CleanupGame(void)
 {
 	CleanupPlayer();
 	CleanupBullet();
+	CleanupAsteroid();
 	sfSprite_destroy(backgroundSprite);
 	backgroundSprite = NULL;
 }

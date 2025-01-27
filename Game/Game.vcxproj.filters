@@ -63,6 +63,9 @@
     <ClCompile Include="Wraparound.c">
       <Filter>Fichiers sources\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="Asteroid.c">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -100,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="Wraparound.h">
       <Filter>Fichiers d%27en-tête\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Asteroid.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
