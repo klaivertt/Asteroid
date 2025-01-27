@@ -10,7 +10,7 @@
 // * @param _rect1 Pointer to the first rectangle.
 // * @param _rect2 Pointer to the second rectangle.
 // * @return sfBool True if the rectangles intersect, false otherwise.
-sfBool CollisionRectRect(sfIntRect* const _rect1, sfIntRect* const _rect2);
+sfBool CollisionRectRect(sfFloatRect* const _rect1, sfFloatRect* const _rect2);
 
 // * @brief Checks for collision between a point and a rectangle.
 // *

@@ -21,4 +21,6 @@ void CleanupBullet(void);
 unsigned int GetBulletNumb(void);
 void AddBullet(sfVector2f _position, sfVector2f _direction);
 
+Bullet* GetBullets(void);
+void RemoveBullet(unsigned int _i);
 #endif // !BULLET_H

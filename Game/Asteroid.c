@@ -6,6 +6,7 @@ void LoadTexture(void);
 void AsteroidCreate(void);
 void WaveCreate(void);
 void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid);
+void CheckBulletAsteroidCollision(unsigned int _index);
 
 void LoadAsteroid(void)
 {
@@ -20,6 +21,7 @@ void UpdateAsteroid(float _dt)
 	for (unsigned int i = 0; i < asteroidManager.asteroidsNumb; i++)
 	{
 		UpdateAsteroidPosition(_dt, &asteroidManager.asteroids[i]);
+		CheckBulletAsteroidCollision(i);
 	}
 }
 
@@ -70,7 +72,7 @@ void AsteroidCreate(void)
 	sfSprite_setPosition(asteroid->sprite, (sfVector2f) { (float)(rand() % SCREEN_WIDTH), (float)(rand() % SCREEN_HEIGHT) });
 	sfSprite_setRotation(asteroid->sprite, (float)(rand() % 360));
 	asteroid->size = LARGE;
-	asteroid->velocity = (sfVector2f) { (float)(rand() % 300 - 150), (float)(rand() % 300 - 150) };
+	asteroid->velocity = (sfVector2f){ (float)(rand() % 300 - 150), (float)(rand() % 300 - 150) };
 	asteroidManager.asteroidsNumb++;
 }
 
@@ -89,29 +91,49 @@ void WaveCreate(void)
 
 void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid)
 {
-	sfSprite_move(_asteroid->sprite, (sfVector2f){ _asteroid->velocity.x * _dt,_asteroid->velocity.y * _dt});
+	sfSprite_move(_asteroid->sprite, (sfVector2f) { _asteroid->velocity.x* _dt, _asteroid->velocity.y* _dt });
 
 	sfVector2f asteroidPosition = sfSprite_getPosition(_asteroid->sprite);
 	if (asteroidPosition.x < 0)
 	{
-		sfSprite_setPosition(_asteroid->sprite, (sfVector2f){ SCREEN_WIDTH, asteroidPosition.y });
+		sfSprite_setPosition(_asteroid->sprite, (sfVector2f) { SCREEN_WIDTH, asteroidPosition.y });
 	}
 	else if (asteroidPosition.x > SCREEN_WIDTH)
 	{
-		sfSprite_setPosition(_asteroid->sprite, (sfVector2f){ 0, asteroidPosition.y });
+		sfSprite_setPosition(_asteroid->sprite, (sfVector2f) { 0, asteroidPosition.y });
 	}
 	if (asteroidPosition.y < 0)
 	{
-		sfSprite_setPosition(_asteroid->sprite, (sfVector2f){ asteroidPosition.x, SCREEN_HEIGHT });
+		sfSprite_setPosition(_asteroid->sprite, (sfVector2f) { asteroidPosition.x, SCREEN_HEIGHT });
 	}
 	else if (asteroidPosition.y > SCREEN_HEIGHT)
 	{
-		sfSprite_setPosition(_asteroid->sprite, (sfVector2f){ asteroidPosition.x, 0 });
+		sfSprite_setPosition(_asteroid->sprite, (sfVector2f) { asteroidPosition.x, 0 });
 	}
 }
 
-void AsteroidHit(Asteroid* _asteroid)
+void CheckBulletAsteroidCollision(unsigned int _index)
 {
+	Bullet* bullets = GetBullets();
+	unsigned int bulletNumb = GetBulletNumb();
+
+	for (unsigned int i = 0; i < 0; i++)
+	{
+		sfFloatRect asteroidHitbox = sfSprite_getGlobalBounds(asteroidManager.asteroids[_index].sprite);
+		sfFloatRect bulletHitbox = sfSprite_getGlobalBounds(bullets[i].sprite);
+
+		sfVector2f asteroidPosition = sfSprite_getPosition(asteroidManager.asteroids[_index].sprite);
+		sfVector2f bulletPosition = sfSprite_getPosition(bullets[i].sprite);
+		if (ColisionCircleCircle(asteroidPosition, asteroidHitbox.width/2, bulletPosition, bulletHitbox.width/2))
+		{
+			// Handle collision
+			//AsteroidHit(&asteroidManager.asteroids[j]);
+			// Remove bullet
+			RemoveBullet(i);
+			i--; // Adjust index after removal
+			break;
+		}
+	}
 }
 
 void SortAsteroideList(unsigned int _index)

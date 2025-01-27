@@ -3,21 +3,23 @@
 
 #include "Common.h"
 #include "Wraparound.h"
+#include "Bullet.h"
+#include "Collision.h"
 
 #define ASTEROID_MAX 500
 
-enum AsteroidSize
+typedef enum AsteroidSize
 {
 	LARGE,
 	MEDIUM,
 	SMALL
-};
+}AsteroidSize;
 
 typedef struct Asteroid
 {
 	sfSprite* sprite;
 	sfVector2f velocity;
-	enum AsteroidSize size;
+	AsteroidSize size;
 }Asteroid;
 
 typedef struct AsteroidManager

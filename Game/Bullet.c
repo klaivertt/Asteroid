@@ -19,9 +19,6 @@ void UpdateBullet(float _dt)
 		// Bullet move
 		sfSprite_move(bulletList[i].sprite, (sfVector2f) { bulletList[i].velocity.x* _dt, bulletList[i].velocity.y* _dt });
 
-		// Bullet life time
-
-
 		sfVector2f bulletPosition = sfSprite_getPosition(bulletList[i].sprite);
 		if (bulletPosition.x < 0)
 		{
@@ -40,6 +37,7 @@ void UpdateBullet(float _dt)
 			sfSprite_setPosition(bulletList[i].sprite, (sfVector2f) { bulletPosition.x, 0 });
 		}
 
+		// Bullet life time
 		bulletList[i].lifeTime -= _dt;
 		if (bulletList[i].lifeTime < 0)
 		{
@@ -105,5 +103,18 @@ void SortBulletList(unsigned int _index)
 		bulletList[i + 1] = temp;
 	}
 
+	bulletCount--;
+}
+
+Bullet* GetBullets(void)
+{
+	return bulletList;
+}
+
+void RemoveBullet(unsigned int _i)
+{
+	sfSprite_destroy(bulletList[_i].sprite);
+	bulletList[_i].sprite = NULL;
+	SortBulletList(_i);
 	bulletCount--;
 }
