@@ -46,7 +46,7 @@ void UpdatePlayer(float _dt)
 
 void DrawPlayer(sfRenderWindow* const _renderWindow)
 {
-	DrawWraparound(_renderWindow, player.sprite, sfSprite_getPosition(player.sprite));
+	DrawWraparound(_renderWindow, player.sprite);
 }
 
 void CleanupPlayer(void)

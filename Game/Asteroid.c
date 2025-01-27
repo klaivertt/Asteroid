@@ -7,6 +7,8 @@ void AsteroidCreate(void);
 void WaveCreate(void);
 void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid);
 void CheckBulletAsteroidCollision(unsigned int _index);
+void AsteroidPartition(unsigned int _i);
+void SortAsteroideList(unsigned int _index);
 
 void LoadAsteroid(void)
 {
@@ -117,22 +119,81 @@ void CheckBulletAsteroidCollision(unsigned int _index)
 	Bullet* bullets = GetBullets();
 	unsigned int bulletNumb = GetBulletNumb();
 
-	for (unsigned int i = 0; i < 0; i++)
+	for (unsigned int i = 0; i < bulletNumb; i++)
 	{
+		if (!asteroidManager.asteroids[_index].sprite || !bullets[i].sprite)
+		{
+			continue;
+		}
+
 		sfFloatRect asteroidHitbox = sfSprite_getGlobalBounds(asteroidManager.asteroids[_index].sprite);
 		sfFloatRect bulletHitbox = sfSprite_getGlobalBounds(bullets[i].sprite);
 
 		sfVector2f asteroidPosition = sfSprite_getPosition(asteroidManager.asteroids[_index].sprite);
 		sfVector2f bulletPosition = sfSprite_getPosition(bullets[i].sprite);
-		if (ColisionCircleCircle(asteroidPosition, asteroidHitbox.width/2, bulletPosition, bulletHitbox.width/2))
+		if (ColisionCircleCircle(asteroidPosition, asteroidHitbox.width / 2, bulletPosition, bulletHitbox.width / 2))
 		{
 			// Handle collision
-			//AsteroidHit(&asteroidManager.asteroids[j]);
+			AsteroidPartition(_index);
 			// Remove bullet
 			RemoveBullet(i);
 			i--; // Adjust index after removal
 			break;
 		}
+	}
+}
+
+void AsteroidPartition(unsigned int _i)
+{
+	Asteroid* asteroid = &asteroidManager.asteroids[_i];
+	if (asteroid->size == LARGE)
+	{
+		// Create 2 medium asteroids
+		for (int i = 0; i < 2; i++)
+		{
+			Asteroid* newAsteroid = &asteroidManager.asteroids[asteroidManager.asteroidsNumb];
+			newAsteroid->sprite = sfSprite_create();
+			sfSprite_setTexture(newAsteroid->sprite, asteroidManager.textureMedium, sfTrue);
+			sfVector2u textureSize = sfTexture_getSize(asteroidManager.textureMedium);
+			sfSprite_setOrigin(newAsteroid->sprite, (sfVector2f) { (float)textureSize.x / 2, (float)textureSize.x / 2 });
+			sfSprite_setPosition(newAsteroid->sprite, sfSprite_getPosition(asteroid->sprite));
+			sfSprite_setRotation(newAsteroid->sprite, (float)(rand() % 360));
+			newAsteroid->size = MEDIUM;
+			newAsteroid->velocity = (sfVector2f){ (float)(rand() % 400 - 200), (float)(rand() % 400 - 200) };
+			asteroidManager.asteroidsNumb++;
+		}
+
+		sfSprite_destroy(asteroid->sprite);
+		asteroid->sprite = NULL;
+		SortAsteroideList(_i);
+	}
+	else if (asteroid->size == MEDIUM)
+	{
+		// Create 2 small asteroids
+		for (int i = 0; i < 2; i++)
+		{
+			Asteroid* newAsteroid = &asteroidManager.asteroids[asteroidManager.asteroidsNumb];
+			newAsteroid->sprite = sfSprite_create();
+			sfSprite_setTexture(newAsteroid->sprite, asteroidManager.textureSmall, sfTrue);
+			sfVector2u textureSize = sfTexture_getSize(asteroidManager.textureSmall);
+			sfSprite_setOrigin(newAsteroid->sprite, (sfVector2f) { (float)textureSize.x / 2, (float)textureSize.x / 2 });
+			sfSprite_setPosition(newAsteroid->sprite, sfSprite_getPosition(asteroid->sprite));
+			sfSprite_setRotation(newAsteroid->sprite, (float)(rand() % 360));
+			newAsteroid->size = SMALL;
+			newAsteroid->velocity = (sfVector2f){ (float)(rand() % 500 - 250), (float)(rand() % 500 - 250) };
+			asteroidManager.asteroidsNumb++;
+		}
+
+		sfSprite_destroy(asteroid->sprite);
+		asteroid->sprite = NULL;
+		SortAsteroideList(_i);
+	}
+	else if (asteroid->size == SMALL)
+	{
+		// Remove asteroid
+		sfSprite_destroy(asteroid->sprite);
+		asteroid->sprite = NULL;
+		SortAsteroideList(_i);
 	}
 }
 
