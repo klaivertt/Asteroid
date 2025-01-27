@@ -20,10 +20,9 @@ void UpdateAsteroid(float _dt)
 
 void DrawAsteroid(sfRenderWindow* const _renderWindow)
 {
-	for (int i = 0; i < asteroidManager.asteroidsNumb; i++)
+	for (unsigned int i = 0; i < asteroidManager.asteroidsNumb; i++)
 	{
 		DrawWraparound(_renderWindow, asteroidManager.asteroids[i].sprite);
-		//sfRenderWindow_drawSprite(_renderWindow, asteroidManager.asteroids[i].sprite, NULL);
 	}
 }
 
@@ -62,7 +61,7 @@ void AsteroidCreate(void)
 	asteroid->sprite = sfSprite_create();
 	sfSprite_setTexture(asteroid->sprite, asteroidManager.textureLarge, sfTrue);
 	sfVector2u textureSize = sfTexture_getSize(asteroidManager.textureLarge);
-	sfSprite_setOrigin(asteroid->sprite, (sfVector2f) { textureSize.x / 2, textureSize.x / 2 });
+	sfSprite_setOrigin(asteroid->sprite, (sfVector2f) { (float)textureSize.x / 2, (float)textureSize.x / 2 });
 	sfSprite_setPosition(asteroid->sprite, (sfVector2f) { (float)(rand() % SCREEN_WIDTH), (float)(rand() % SCREEN_HEIGHT) });
 	sfSprite_setRotation(asteroid->sprite, (float)(rand() % 360));
 	asteroid->size = LARGE;
@@ -73,6 +72,10 @@ void AsteroidCreate(void)
 void WaveCreate(void)
 {
 	int asteroidNumb = asteroidManager.currentWave + 3;
+	if (asteroidNumb > 50)
+	{
+		asteroidNumb = 50;
+	}
 	for (int i = 0; i < asteroidNumb; i++)
 	{
 		AsteroidCreate();
