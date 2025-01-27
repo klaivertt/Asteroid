@@ -33,7 +33,7 @@ void LoadPlayer(void)
 
 	player.canShoot = sfTrue;
 	player.cooldown = FIRE_RATE;
-	player.direction = (sfVector2f){ 0, 0 };
+	player.velocity = (sfVector2f){ 0, 0 };
 	player.health = PLAYER_HEALTH;
 }
 
@@ -46,7 +46,7 @@ void UpdatePlayer(float _dt)
 
 void DrawPlayer(sfRenderWindow* const _renderWindow)
 {
-	sfRenderWindow_drawSprite(_renderWindow, player.sprite, NULL);
+	DrawWraparound(_renderWindow, player.sprite, sfSprite_getPosition(player.sprite));
 }
 
 void CleanupPlayer(void)
@@ -60,39 +60,65 @@ void CleanupPlayer(void)
 
 void MovePlayer(float _dt)
 {
-	int rotation = 0;
-	if (sfKeyboard_isKeyPressed(sfKeyD))
+	float rotation = 0;
+	if (sfKeyboard_isKeyPressed(sfKeyD) || sfKeyboard_isKeyPressed(sfKeyRight))
 	{
-		rotation = 5;
+		rotation = 300.f * _dt;
 	}
-	if (sfKeyboard_isKeyPressed(sfKeyQ))
+	if (sfKeyboard_isKeyPressed(sfKeyQ) || sfKeyboard_isKeyPressed(sfKeyLeft))
 	{
-		rotation = -5;
+		rotation = -300.f * _dt;
 	}
 
-	sfSprite_rotate(player.sprite, (float)rotation);
+	sfSprite_rotate(player.sprite, rotation);
 
-	if (sfKeyboard_isKeyPressed(sfKeyZ))
+	if (sfKeyboard_isKeyPressed(sfKeyZ) || sfKeyboard_isKeyPressed(sfKeyUp))
 	{
 		sfVector2f newDirection = (sfVector2f){
 			sinf(sfSprite_getRotation(player.sprite) * (float)(M_PI / 180)),
 			-cosf(sfSprite_getRotation(player.sprite) * (float)(M_PI / 180))
 		};
 
-		player.direction = (sfVector2f){ newDirection.x + player.direction.x, newDirection.y + player.direction.y };
+		player.velocity = (sfVector2f){ newDirection.x + player.velocity.x, newDirection.y + player.velocity.y };
 
-		if (player.direction.x > MAX_ACCELERATE_FORCE)
-			player.direction.x = MAX_ACCELERATE_FORCE;
-		else if (player.direction.x < -MAX_ACCELERATE_FORCE)
-			player.direction.x = -MAX_ACCELERATE_FORCE;
+		if (player.velocity.x > MAX_ACCELERATE_FORCE)
+		{
+			player.velocity.x = MAX_ACCELERATE_FORCE;
+		}
+		else if (player.velocity.x < -MAX_ACCELERATE_FORCE)
+		{
+			player.velocity.x = -MAX_ACCELERATE_FORCE;
+		}
 
-		if (player.direction.y > MAX_ACCELERATE_FORCE)
-			player.direction.y = MAX_ACCELERATE_FORCE;
-		else if (player.direction.y < -MAX_ACCELERATE_FORCE)
-			player.direction.y = -MAX_ACCELERATE_FORCE;
+		if (player.velocity.y > MAX_ACCELERATE_FORCE)
+		{
+			player.velocity.y = MAX_ACCELERATE_FORCE;
+		}
+		else if (player.velocity.y < -MAX_ACCELERATE_FORCE)
+		{
+			player.velocity.y = -MAX_ACCELERATE_FORCE;
+		}
 	}
 
-	sfSprite_move(player.sprite, (sfVector2f) { player.direction.x* PLAYER_BASE_SPEED* _dt, player.direction.y* PLAYER_BASE_SPEED* _dt });
+	sfSprite_move(player.sprite, (sfVector2f) { player.velocity.x * PLAYER_BASE_SPEED * _dt, player.velocity.y * PLAYER_BASE_SPEED * _dt });
+
+	sfVector2f playerPosition = sfSprite_getPosition(player.sprite);
+	if (playerPosition.x < 0)
+	{
+		sfSprite_setPosition(player.sprite, (sfVector2f) { SCREEN_WIDTH, playerPosition.y});
+	}
+	else if (playerPosition.x > SCREEN_WIDTH)
+	{
+		sfSprite_setPosition(player.sprite, (sfVector2f) {0, playerPosition.y});
+	}
+	if (playerPosition.y < 0)
+	{
+		sfSprite_setPosition(player.sprite, (sfVector2f) { playerPosition.x, SCREEN_HEIGHT });
+	}
+	else if (playerPosition.y > SCREEN_HEIGHT)
+	{
+		sfSprite_setPosition(player.sprite, (sfVector2f) { playerPosition.x, 0 });
+	}
 }
 
 void UpdateCooldown(float _dt)
@@ -115,7 +141,7 @@ void UpdateFireControl(void)
 		if (player.canShoot && GetBulletNumb() < BULLET_MAX)
 		{
 			sfFloatRect playerHitbox = sfSprite_getGlobalBounds(player.sprite);
-			sfVector2f shotPosition = { playerHitbox.left + playerHitbox.width / 2, playerHitbox.top + playerHitbox.height/2 };
+			sfVector2f shotPosition = { playerHitbox.left + playerHitbox.width / 2, playerHitbox.top + playerHitbox.height/2};
 			
 			sfVector2f direction = (sfVector2f){
 			sinf(sfSprite_getRotation(player.sprite) * (float)(M_PI / 180)),

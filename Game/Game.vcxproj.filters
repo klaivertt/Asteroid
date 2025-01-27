@@ -60,6 +60,9 @@
     <ClCompile Include="HUD.c">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Wraparound.c">
+      <Filter>Fichiers sources\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="HUD.h">
       <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Wraparound.h">
+      <Filter>Fichiers d%27en-tête\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

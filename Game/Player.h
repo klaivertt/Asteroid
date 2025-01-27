@@ -3,10 +3,11 @@
 
 #include "Common.h"
 #include "Bullet.h"
+#include "Wraparound.h"
 
 #define PLAYER_BASE_SPEED 5
 #define MAX_ACCELERATE_FORCE 40
-#define FIRE_RATE 0.15f
+#define FIRE_RATE 0.1f
 #define PLAYER_HEALTH 3
 #define PLAYER_MAX_HEALTH 9
 
@@ -16,7 +17,7 @@ typedef struct Player
 	sfSprite* sprite;
 	sfBool canShoot;
 	float cooldown;
-	sfVector2f direction;
+	sfVector2f velocity;
 	int health;
 }Player;
 

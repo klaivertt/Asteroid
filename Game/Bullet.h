@@ -4,7 +4,7 @@
 #include "Common.h"
 
 #define BULLET_MAX 200
-#define BULLET_SPEED 450.f
+#define BULLET_SPEED 650.f
 
 typedef struct Bullet
 {

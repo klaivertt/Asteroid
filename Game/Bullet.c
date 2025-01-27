@@ -19,15 +19,6 @@ void UpdateBullet(float _dt)
 		// Bullet move
 		sfSprite_move(bulletList[i].sprite, (sfVector2f) { bulletList[i].velocity.x * _dt, bulletList[i].velocity.y * _dt });
 
-		// The bullet is outside the screen
-		/*sfFloatRect hitbox = sfSprite_getGlobalBounds(bulletList[i].sprite);
-		if (hitbox.top + hitbox.height < 0)
-		{
-			sfSprite_destroy(bulletList[i].sprite);
-			bulletList[i].sprite = NULL;
-			SortBulletList(i);
-		}*/
-
 		// Bullet life time
 		bulletList[i].lifeTime -= _dt;
 		if (bulletList[i].lifeTime < 0)
@@ -35,6 +26,24 @@ void UpdateBullet(float _dt)
 			sfSprite_destroy(bulletList[i].sprite);
 			bulletList[i].sprite = NULL;
 			SortBulletList(i);
+		}
+
+		sfVector2f bulletPosition = sfSprite_getPosition(bulletList[i].sprite);
+		if (bulletPosition.x < 0)
+		{
+			sfSprite_setPosition(bulletList[i].sprite, (sfVector2f) { SCREEN_WIDTH, bulletPosition.y });
+		}
+		else if (bulletPosition.x > SCREEN_WIDTH)
+		{
+			sfSprite_setPosition(bulletList[i].sprite, (sfVector2f) { 0, bulletPosition.y });
+		}
+		if (bulletPosition.y < 0)
+		{
+			sfSprite_setPosition(bulletList[i].sprite, (sfVector2f) { bulletPosition.x, SCREEN_HEIGHT });
+		}
+		else if (bulletPosition.y > SCREEN_HEIGHT)
+		{
+			sfSprite_setPosition(bulletList[i].sprite, (sfVector2f) { bulletPosition.x, 0 });
 		}
 	}
 
@@ -74,13 +83,10 @@ void AddBullet(sfVector2f _position, sfVector2f _direction)
 	sfSprite_setTexture(newBullet.sprite, bulletTexture, sfTrue);
 	sfFloatRect hitbox = sfSprite_getLocalBounds(newBullet.sprite);
 	sfSprite_setOrigin(newBullet.sprite, (sfVector2f) { hitbox.width / 2, hitbox.height / 2 });
+	sfVector2f newDirection = (sfVector2f){ _direction.x, _direction.y };
 	sfSprite_setPosition(newBullet.sprite, _position);
 
-	// Normalize the direction
-	float magnitude = sqrtf(_direction.x * _direction.x + _direction.y * _direction.y);
-	sfVector2f normalizedDirection = { _direction.x / magnitude, _direction.y / magnitude };
-
-	newBullet.velocity = (sfVector2f){ normalizedDirection.x * BULLET_SPEED, normalizedDirection.y * BULLET_SPEED };
+	newBullet.velocity = (sfVector2f){ _direction.x * BULLET_SPEED, _direction.y * BULLET_SPEED };
 
 	newBullet.lifeTime = 5.f;
 	bulletList[bulletCount] = newBullet;

@@ -148,6 +148,7 @@
     <ClCompile Include="Player.c" />
     <ClCompile Include="Text.c" />
     <ClCompile Include="Timer.c" />
+    <ClCompile Include="Wraparound.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Wraparound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
