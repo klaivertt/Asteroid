@@ -5,6 +5,7 @@ AsteroidManager asteroidManager;
 void LoadTexture(void);
 void AsteroidCreate(void);
 void WaveCreate(void);
+void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid);
 
 void LoadAsteroid(void)
 {
@@ -16,6 +17,10 @@ void LoadAsteroid(void)
 
 void UpdateAsteroid(float _dt)
 {
+	for (unsigned int i = 0; i < asteroidManager.asteroidsNumb; i++)
+	{
+		UpdateAsteroidPosition(_dt, &asteroidManager.asteroids[i]);
+	}
 }
 
 void DrawAsteroid(sfRenderWindow* const _renderWindow)
@@ -65,7 +70,7 @@ void AsteroidCreate(void)
 	sfSprite_setPosition(asteroid->sprite, (sfVector2f) { (float)(rand() % SCREEN_WIDTH), (float)(rand() % SCREEN_HEIGHT) });
 	sfSprite_setRotation(asteroid->sprite, (float)(rand() % 360));
 	asteroid->size = LARGE;
-	asteroid->velocity = (sfVector2f) { (float)(rand() % 200 - 100), (float)(rand() % 200 - 100) };
+	asteroid->velocity = (sfVector2f) { (float)(rand() % 300 - 150), (float)(rand() % 300 - 150) };
 	asteroidManager.asteroidsNumb++;
 }
 
@@ -82,7 +87,30 @@ void WaveCreate(void)
 	}
 }
 
-void AsteroidHit()
+void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid)
+{
+	sfSprite_move(_asteroid->sprite, (sfVector2f){ _asteroid->velocity.x * _dt,_asteroid->velocity.y * _dt});
+
+	sfVector2f asteroidPosition = sfSprite_getPosition(_asteroid->sprite);
+	if (asteroidPosition.x < 0)
+	{
+		sfSprite_setPosition(_asteroid->sprite, (sfVector2f){ SCREEN_WIDTH, asteroidPosition.y });
+	}
+	else if (asteroidPosition.x > SCREEN_WIDTH)
+	{
+		sfSprite_setPosition(_asteroid->sprite, (sfVector2f){ 0, asteroidPosition.y });
+	}
+	if (asteroidPosition.y < 0)
+	{
+		sfSprite_setPosition(_asteroid->sprite, (sfVector2f){ asteroidPosition.x, SCREEN_HEIGHT });
+	}
+	else if (asteroidPosition.y > SCREEN_HEIGHT)
+	{
+		sfSprite_setPosition(_asteroid->sprite, (sfVector2f){ asteroidPosition.x, 0 });
+	}
+}
+
+void AsteroidHit(Asteroid* _asteroid)
 {
 }
 

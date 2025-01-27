@@ -4,7 +4,7 @@
 #include "Common.h"
 #include "Wraparound.h"
 
-#define ASTEROID_MAX 1000
+#define ASTEROID_MAX 500
 
 enum AsteroidSize
 {
