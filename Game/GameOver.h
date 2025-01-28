@@ -3,13 +3,18 @@
 
 #include "Common.h"
 #include "GameState.h"
-#include "Menu.h"
-#include "Game.h"
+#include "Text.h"
+
 
 typedef struct GameOverData
 {
 	sfTexture* texture;
 	sfSprite* sprite;
+	sfText* gameOverText;
+	sfText* scoreText;
+	sfText* highScoreText;
+	sfText* pressSpaceText;
+	sfText* pressEscapeText;
 }GameOverData;
 
 //* @brief Function to load the Game Over screen resources.

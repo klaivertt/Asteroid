@@ -6,6 +6,7 @@ void MovePlayer(float _dt);
 void UpdateCooldown(float _dt);
 void UpdateFireControl(void);
 void lifeUpdate(void);
+void ColidingWithAsteroid(void);
 
 int GetPlayerHealth(void)
 {
@@ -44,6 +45,7 @@ void UpdatePlayer(float _dt)
 	UpdateCooldown(_dt);
 	UpdateFireControl();
 	lifeUpdate();
+	ColidingWithAsteroid();
 }
 
 void DrawPlayer(sfRenderWindow* const _renderWindow)
@@ -102,16 +104,16 @@ void MovePlayer(float _dt)
 		}
 	}
 
-	sfSprite_move(player.sprite, (sfVector2f) { player.velocity.x * PLAYER_BASE_SPEED * _dt, player.velocity.y * PLAYER_BASE_SPEED * _dt });
+	sfSprite_move(player.sprite, (sfVector2f) { player.velocity.x* PLAYER_BASE_SPEED* _dt, player.velocity.y* PLAYER_BASE_SPEED* _dt });
 
 	sfVector2f playerPosition = sfSprite_getPosition(player.sprite);
 	if (playerPosition.x < 0)
 	{
-		sfSprite_setPosition(player.sprite, (sfVector2f) { SCREEN_WIDTH, playerPosition.y});
+		sfSprite_setPosition(player.sprite, (sfVector2f) { SCREEN_WIDTH, playerPosition.y });
 	}
 	else if (playerPosition.x > SCREEN_WIDTH)
 	{
-		sfSprite_setPosition(player.sprite, (sfVector2f) {0, playerPosition.y});
+		sfSprite_setPosition(player.sprite, (sfVector2f) { 0, playerPosition.y });
 	}
 	if (playerPosition.y < 0)
 	{
@@ -143,8 +145,8 @@ void UpdateFireControl(void)
 		if (player.canShoot && GetBulletNumb() < BULLET_MAX)
 		{
 			sfFloatRect playerHitbox = sfSprite_getGlobalBounds(player.sprite);
-			sfVector2f shotPosition = { playerHitbox.left + playerHitbox.width / 2, playerHitbox.top + playerHitbox.height/2};
-			
+			sfVector2f shotPosition = { playerHitbox.left + playerHitbox.width / 2, playerHitbox.top + playerHitbox.height / 2 };
+
 			sfVector2f direction = (sfVector2f){
 			sinf(sfSprite_getRotation(player.sprite) * (float)(M_PI / 180)),
 			-cosf(sfSprite_getRotation(player.sprite) * (float)(M_PI / 180))
@@ -165,6 +167,36 @@ void lifeUpdate(void)
 		if (player.health > PLAYER_MAX_HEALTH)
 		{
 			player.health = PLAYER_MAX_HEALTH;
+		}
+	}
+}
+
+void ColidingWithAsteroid(void)
+{
+	Asteroid* asteroids = GetAsteroids();
+	unsigned int asteroidNumb = GetAsteroidNumb();
+
+	for (unsigned int i = 0; i < asteroidNumb; i++)
+	{
+		if (!asteroids[i].sprite)
+		{
+			continue;
+		}
+
+		sfFloatRect playerHitbox = sfSprite_getGlobalBounds(player.sprite);
+		sfFloatRect asteroidHitbox = sfSprite_getGlobalBounds(asteroids[i].sprite);
+
+		sfVector2f playerPosition = sfSprite_getPosition(player.sprite);
+		sfVector2f asteroidPosition = sfSprite_getPosition(asteroids[i].sprite);
+
+		if (ColisionCircleCircle(playerPosition, playerHitbox.width / 2, asteroidPosition, asteroidHitbox.width / 2))
+		{
+			sfSprite_setPosition(player.sprite, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
+			player.health--;
+			if (player.health <= 0)
+			{
+				player.health = 0;
+			}
 		}
 	}
 }

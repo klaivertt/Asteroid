@@ -16,6 +16,11 @@ Asteroid* GetAsteroids(void)
 	return asteroidManager.asteroids;
 }
 
+int GetAsteroidNumb(void)
+{
+	return asteroidManager.asteroidsNumb;
+}
+
 void LoadAsteroid(void)
 {
 	LoadTexture();
