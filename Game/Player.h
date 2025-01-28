@@ -4,6 +4,7 @@
 #include "Common.h"
 #include "Bullet.h"
 #include "Wraparound.h"
+#include "Score.h"
 
 #define PLAYER_BASE_SPEED 5
 #define MAX_ACCELERATE_FORCE 40

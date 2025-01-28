@@ -5,6 +5,7 @@ AsteroidManager asteroidManager;
 void LoadTexture(void);
 void AsteroidCreate(void);
 void WaveCreate(void);
+void UpdateWave(void);
 void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid);
 void CheckBulletAsteroidCollision(unsigned int _index);
 void AsteroidPartition(unsigned int _i);
@@ -25,6 +26,7 @@ void UpdateAsteroid(float _dt)
 		UpdateAsteroidPosition(_dt, &asteroidManager.asteroids[i]);
 		CheckBulletAsteroidCollision(i);
 	}
+	UpdateWave();
 }
 
 void DrawAsteroid(sfRenderWindow* const _renderWindow)
@@ -37,6 +39,16 @@ void DrawAsteroid(sfRenderWindow* const _renderWindow)
 
 void CleanupAsteroid(void)
 {
+	for (unsigned int i = 0; i < asteroidManager.asteroidsNumb; i++)
+	{
+		if (asteroidManager.asteroids[i].sprite)
+		{
+			sfSprite_destroy(asteroidManager.asteroids[i].sprite);
+		}
+	}
+	sfTexture_destroy(asteroidManager.textureLarge);
+	sfTexture_destroy(asteroidManager.textureMedium);
+	sfTexture_destroy(asteroidManager.textureSmall);
 }
 
 void LoadTexture(void)
@@ -88,6 +100,15 @@ void WaveCreate(void)
 	for (int i = 0; i < asteroidNumb; i++)
 	{
 		AsteroidCreate();
+	}
+}
+
+void UpdateWave(void)
+{
+	if (asteroidManager.asteroidsNumb == 0)
+	{
+		asteroidManager.currentWave++;
+		WaveCreate();
 	}
 }
 
