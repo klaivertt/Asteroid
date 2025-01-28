@@ -26,6 +26,11 @@ void DestroyAsteroid(unsigned int _index)
 	AsteroidPartition(_index);
 }
 
+void SetPlayerPosition(sfVector2f _position)
+{
+	asteroidManager.playerPosition = _position;
+}
+
 void LoadAsteroid(void)
 {
 	LoadTexture();
@@ -98,10 +103,17 @@ void AsteroidCreate(void)
 	sfSprite_setTexture(asteroid->sprite, asteroidManager.textureLarge, sfTrue);
 	sfVector2u textureSize = sfTexture_getSize(asteroidManager.textureLarge);
 	sfSprite_setOrigin(asteroid->sprite, (sfVector2f) { (float)textureSize.x / 2, (float)textureSize.x / 2 });
-	sfSprite_setPosition(asteroid->sprite, (sfVector2f) { (float)(rand() % SCREEN_WIDTH), (float)(rand() % SCREEN_HEIGHT) });
+
+	sfVector2f position = (sfVector2f){ 0,0 };
+	do {
+		position = (sfVector2f) { (float)(rand() % SCREEN_WIDTH), (float)(rand() % SCREEN_HEIGHT) };
+	} while (sqrt(pow(position.x - asteroidManager.playerPosition.x, 2) + pow(position.y - asteroidManager.playerPosition.y, 2)) < 100);
+
+	sfSprite_setPosition(asteroid->sprite, position);
 	sfSprite_setRotation(asteroid->sprite, (float)(rand() % 360));
 	asteroid->size = LARGE;
 	asteroid->velocity = (sfVector2f){ (float)(rand() % 300 - 150), (float)(rand() % 300 - 150) };
+	asteroid->rotation = (float)(rand() % 150 - 75);
 	asteroidManager.asteroidsNumb++;
 }
 
@@ -129,8 +141,9 @@ void UpdateWave(void)
 
 void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid)
 {
+	sfSprite_rotate(_asteroid->sprite, _asteroid->rotation * _dt);
 	sfSprite_move(_asteroid->sprite, (sfVector2f) { _asteroid->velocity.x* _dt, _asteroid->velocity.y* _dt });
-
+	
 	sfVector2f asteroidPosition = sfSprite_getPosition(_asteroid->sprite);
 	if (asteroidPosition.x < 0)
 	{
@@ -196,6 +209,7 @@ void AsteroidPartition(unsigned int _i)
 			sfSprite_setRotation(newAsteroid->sprite, (float)(rand() % 360));
 			newAsteroid->size = MEDIUM;
 			newAsteroid->velocity = (sfVector2f){ (float)(rand() % 400 - 200), (float)(rand() % 400 - 200) };
+			newAsteroid->rotation = (float)(rand() % 250 - 125);
 			asteroidManager.asteroidsNumb++;
 		}
 		AddScore(20);
@@ -217,6 +231,7 @@ void AsteroidPartition(unsigned int _i)
 			sfSprite_setRotation(newAsteroid->sprite, (float)(rand() % 360));
 			newAsteroid->size = SMALL;
 			newAsteroid->velocity = (sfVector2f){ (float)(rand() % 500 - 250), (float)(rand() % 500 - 250) };
+			newAsteroid->rotation = (float)(rand() % 300 - 150);
 			asteroidManager.asteroidsNumb++;
 		}
 

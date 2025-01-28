@@ -21,6 +21,7 @@ typedef struct Asteroid
 	sfSprite* sprite;
 	sfVector2f velocity;
 	AsteroidSize size;
+	float rotation;
 }Asteroid;
 
 typedef struct AsteroidManager
@@ -30,7 +31,8 @@ typedef struct AsteroidManager
 	sfTexture* textureLarge;
 	sfTexture* textureMedium;
 	sfTexture* textureSmall;
-	unsigned int currentWave;
+	unsigned int currentWave;	
+	sfVector2f playerPosition;
 }AsteroidManager;
 
 void LoadAsteroid(void);	
@@ -41,4 +43,5 @@ void CleanupAsteroid(void);
 Asteroid* GetAsteroids(void);
 int GetAsteroidNumb(void);
 void DestroyAsteroid(unsigned int _index);
+void SetPlayerPosition(sfVector2f _position);
 #endif // !ASTEROID_H

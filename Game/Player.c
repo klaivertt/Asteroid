@@ -14,6 +14,7 @@ int GetPlayerHealth(void)
 	return player.health;
 }
 
+
 void LoadPlayer(void)
 {
 	player.texture = sfTexture_createFromFile("Assets/Sprites/Ship/3.png", NULL);
@@ -65,6 +66,7 @@ void LoadPlayer(void)
 void UpdatePlayer(float _dt)
 {
 	MovePlayer(_dt);
+	SetPlayerPosition(sfSprite_getPosition(player.sprite));
 	UpdateCooldown(_dt);
 	UpdateFireControl();
 	lifeUpdate();
