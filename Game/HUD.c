@@ -45,6 +45,17 @@ void LoadHud(void)
 void UpdateHud(float _dt)
 {
 	UpdateText(&hudData.textScore, "Score: %d", GetScore());
+	for (int i = 0; i < PLAYER_MAX_HEALTH; i++)
+	{
+		if (i < GetPlayerHealth())
+		{
+			sfSprite_setTexture(hudData.healthBar[i], hudData.fullLifeTexture, sfTrue);
+		}
+		else
+		{
+			sfSprite_setTexture(hudData.healthBar[i], hudData.emptylLifeTexture, sfTrue);
+		}
+	}
 }
 
 void DrawHud(sfRenderWindow* const _renderWindow)

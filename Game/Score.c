@@ -19,6 +19,7 @@ void AddScore(unsigned int _value)
 void CleanupScore(void)
 {
 	scores.score = 0;
+	scores.scoreLife = 0;
 }
 
 unsigned int GetScore(void)

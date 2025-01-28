@@ -5,6 +5,7 @@ Player player;
 void MovePlayer(float _dt);
 void UpdateCooldown(float _dt);
 void UpdateFireControl(void);
+void lifeUpdate(void);
 
 int GetPlayerHealth(void)
 {
@@ -42,6 +43,7 @@ void UpdatePlayer(float _dt)
 	MovePlayer(_dt);
 	UpdateCooldown(_dt);
 	UpdateFireControl();
+	lifeUpdate();
 }
 
 void DrawPlayer(sfRenderWindow* const _renderWindow)
@@ -150,6 +152,19 @@ void UpdateFireControl(void)
 			AddBullet(shotPosition, direction);
 
 			player.canShoot = sfFalse;
+		}
+	}
+}
+
+void lifeUpdate(void)
+{
+	if (GetScoreLife() > 5000)
+	{
+		RemovetScoreLife();
+		player.health++;
+		if (player.health > PLAYER_MAX_HEALTH)
+		{
+			player.health = PLAYER_MAX_HEALTH;
 		}
 	}
 }

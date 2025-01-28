@@ -63,6 +63,8 @@ void CleanupGame(void)
 	CleanupPlayer();
 	CleanupBullet();
 	CleanupAsteroid();
+	CleanupHud();
+	CleanupScore();
 	sfSprite_destroy(backgroundSprite);
 	backgroundSprite = NULL;
 }
