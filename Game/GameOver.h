@@ -4,6 +4,7 @@
 #include "Common.h"
 #include "GameState.h"
 #include "Text.h"
+#include "Score.h"
 
 
 typedef struct GameOverData

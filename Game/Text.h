@@ -51,4 +51,9 @@ void ResizeText(sfText* _text, unsigned int _fontSize);
 // *@param _origin: The origin of the text object
 void SetTextOrigin(sfText* _text, sfVector2f _origin);
 
+// *@brief Function to draw the text object on the screen
+// *
+// *@param _renderWindow: Pointer to the sfRenderWindow object to draw the text on
+// *@param _text: Pointer to the sfText object to draw
+void DrawText(sfRenderWindow* const _renderWindow, sfText* _text);
 #endif

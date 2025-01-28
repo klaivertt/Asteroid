@@ -55,3 +55,8 @@ void SetTextOrigin(sfText* _text, sfVector2f _origin)
 	sfFloatRect textRect = sfText_getLocalBounds(_text);
 	sfText_setOrigin(_text, (sfVector2f){textRect.width/_origin.x, textRect.height / _origin.y});
 }
+
+void DrawText(sfRenderWindow* const _renderWindow, sfText* _text)
+{
+	sfRenderWindow_drawText(_renderWindow, _text, NULL);
+}
