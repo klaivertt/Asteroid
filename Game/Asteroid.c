@@ -11,6 +11,11 @@ void CheckBulletAsteroidCollision(unsigned int _index);
 void AsteroidPartition(unsigned int _i);
 void SortAsteroideList(unsigned int _index);
 
+Asteroid* GetAsteroids(void)
+{
+	return asteroidManager.asteroids;
+}
+
 void LoadAsteroid(void)
 {
 	LoadTexture();

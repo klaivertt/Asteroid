@@ -47,6 +47,11 @@ void UpdateGame(sfRenderWindow* const _renderWindow, float _dt)
 	UpdateBullet(_dt);
 	UpdateAsteroid(_dt);
 	UpdateHud(_dt);
+
+	if (GetPlayerHealth() <= 0)
+	{
+		SetGameState(GAME_OVER);
+	}
 }
 
 void DrawGame(sfRenderWindow* const _renderWindow)

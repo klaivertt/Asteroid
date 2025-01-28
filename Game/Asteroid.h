@@ -38,4 +38,5 @@ void UpdateAsteroid(float _dt);
 void DrawAsteroid(sfRenderWindow* const _renderWindow);
 void CleanupAsteroid(void);
 
+Asteroid* GetAsteroids(void);
 #endif // !ASTEROID_H
