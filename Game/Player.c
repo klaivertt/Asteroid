@@ -17,14 +17,14 @@ void LoadPlayer(void)
 	if (!player.texture)
 	{
 		printf("Error loading player texture\n");
-		return;
+		exit(EXIT_FAILURE);
 	}
 	player.sprite = sfSprite_create();
 	if (!player.sprite)
 	{
 		printf("Error creating player sprite\n");
 		player.texture = NULL;
-		return;
+		exit(EXIT_FAILURE);
 	}
 	sfSprite_setTexture(player.sprite, player.texture, sfTrue);
 	sfFloatRect playerHitbox = sfSprite_getLocalBounds(player.sprite);

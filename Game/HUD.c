@@ -40,11 +40,11 @@ void LoadHud(void)
 
 		sfSprite_setPosition(hudData.healthBar[i], (sfVector2f) { startPosition.x + (i * 50), startPosition.y });
 	}
-	hudData.score = 0;
 }
 
 void UpdateHud(float _dt)
 {
+	UpdateText(&hudData.textScore, "Score: %d", GetScore());
 }
 
 void DrawHud(sfRenderWindow* const _renderWindow)

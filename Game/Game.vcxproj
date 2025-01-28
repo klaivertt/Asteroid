@@ -147,6 +147,7 @@
     <ClCompile Include="main.c" />
     <ClCompile Include="Menu.c" />
     <ClCompile Include="Player.c" />
+    <ClCompile Include="Score.c" />
     <ClCompile Include="Text.c" />
     <ClCompile Include="Timer.c" />
     <ClCompile Include="Wraparound.c" />
@@ -162,6 +163,7 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Wraparound.h" />

@@ -5,10 +5,10 @@
 
 #include "Player.h"
 #include "Text.h"
+#include "Score.h"
 
 typedef struct HUDData
 {
-	int score;
 	sfText* textScore;
 	sfSprite* healthBar[PLAYER_MAX_HEALTH];
 	sfTexture* emptylLifeTexture;

@@ -5,6 +5,7 @@
 #include "Wraparound.h"
 #include "Bullet.h"
 #include "Collision.h"
+#include "Score.h"
 
 #define ASTEROID_MAX 500
 

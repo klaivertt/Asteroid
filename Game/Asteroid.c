@@ -45,21 +45,21 @@ void LoadTexture(void)
 	if (!asteroidManager.textureLarge)
 	{
 		printf("Error loading asteroid large texture\n");
-		return;
+		exit(EXIT_FAILURE);
 	}
 
 	asteroidManager.textureMedium = sfTexture_createFromFile("Assets/Sprites/Background/Meteor4.png", NULL);
 	if (!asteroidManager.textureMedium)
 	{
 		printf("Error loading asteroid medium texture\n");
-		return;
+		exit(EXIT_FAILURE);
 	}
 
 	asteroidManager.textureSmall = sfTexture_createFromFile("Assets/Sprites/Background/Meteor5.png", NULL);
 	if (!asteroidManager.textureSmall)
 	{
 		printf("Error loading asteroid small texture\n");
-		return;
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -137,7 +137,7 @@ void CheckBulletAsteroidCollision(unsigned int _index)
 			AsteroidPartition(_index);
 			// Remove bullet
 			RemoveBullet(i);
-			i--; // Adjust index after removal
+			i--;
 			break;
 		}
 	}
@@ -162,7 +162,7 @@ void AsteroidPartition(unsigned int _i)
 			newAsteroid->velocity = (sfVector2f){ (float)(rand() % 400 - 200), (float)(rand() % 400 - 200) };
 			asteroidManager.asteroidsNumb++;
 		}
-
+		AddScore(20);
 		sfSprite_destroy(asteroid->sprite);
 		asteroid->sprite = NULL;
 		SortAsteroideList(_i);
@@ -184,6 +184,7 @@ void AsteroidPartition(unsigned int _i)
 			asteroidManager.asteroidsNumb++;
 		}
 
+		AddScore(50);
 		sfSprite_destroy(asteroid->sprite);
 		asteroid->sprite = NULL;
 		SortAsteroideList(_i);
@@ -191,6 +192,7 @@ void AsteroidPartition(unsigned int _i)
 	else if (asteroid->size == SMALL)
 	{
 		// Remove asteroid
+		AddScore(100);
 		sfSprite_destroy(asteroid->sprite);
 		asteroid->sprite = NULL;
 		SortAsteroideList(_i);
