@@ -18,15 +18,22 @@ void LoadGameOver(void)
 		exit(EXIT_FAILURE);
 	}
 	sfSprite_setTexture(gameOverData.sprite, gameOverData.texture, sfTrue);
+	sfSprite_setScale(gameOverData.sprite, (sfVector2f) { 2, 2 });
 	sfFloatRect gameOverHitbox = sfSprite_getLocalBounds(gameOverData.sprite);
 	sfSprite_setOrigin(gameOverData.sprite, (sfVector2f) { gameOverHitbox.width / 2, gameOverHitbox.height / 2 });
 	sfSprite_setPosition(gameOverData.sprite, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
 
 	gameOverData.gameOverText = InitText("Game Over", 65, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT * 0.3f });
-	gameOverData.scoreText = InitTextWithValue("Score: %d", GetScore(), 35, (sfVector2f){ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
-	gameOverData.highScoreText = InitTextWithValue("High Score: %d", GetHighScore(), 35, (sfVector2f){ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50 });
-	gameOverData.pressSpaceText = InitText("Press Space to Play Again", 35, (sfVector2f){ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 100 });
-	gameOverData.pressEscapeText = InitText("Press Escape to Return to Menu", 35, (sfVector2f){ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 150 });
+	gameOverData.scoreText = InitTextWithValue("Score: %d", GetScore(), 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
+	gameOverData.highScoreText = InitTextWithValue("High Score: %d", GetHighScore(), 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50 });
+	gameOverData.pressSpaceText = InitText("Press Space to Play Again", 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 100 });
+	gameOverData.pressEscapeText = InitText("Press Escape to Return to Menu", 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 150 });
+
+	SetTextOrigin(gameOverData.gameOverText, (sfVector2f) { 2, 2 });
+	SetTextOrigin(gameOverData.scoreText, (sfVector2f) { 2, 2 });
+	SetTextOrigin(gameOverData.highScoreText, (sfVector2f) { 2, 2 });
+	SetTextOrigin(gameOverData.pressSpaceText, (sfVector2f) { 2, 2 });
+	SetTextOrigin(gameOverData.pressEscapeText, (sfVector2f) { 2, 2 });
 }
 
 void KeyPressedGameOver(sfKeyEvent _key)
