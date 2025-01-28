@@ -21,6 +21,11 @@ int GetAsteroidNumb(void)
 	return asteroidManager.asteroidsNumb;
 }
 
+void DestroyAsteroid(unsigned int _index)
+{
+	AsteroidPartition(_index);
+}
+
 void LoadAsteroid(void)
 {
 	LoadTexture();

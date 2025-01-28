@@ -7,6 +7,7 @@ void UpdateCooldown(float _dt);
 void UpdateFireControl(void);
 void lifeUpdate(void);
 void ColidingWithAsteroid(void);
+void UpdateShield(float _dt);
 
 int GetPlayerHealth(void)
 {
@@ -28,15 +29,37 @@ void LoadPlayer(void)
 		player.texture = NULL;
 		exit(EXIT_FAILURE);
 	}
+
+	player.shieldTexture = sfTexture_createFromFile("Assets/Sprites/FX/Shield.png", NULL);
+	if (!player.shieldTexture)
+	{
+		printf("Error loading shield texture\n");
+		exit(EXIT_FAILURE);
+	}
+	player.shieldSprite = sfSprite_create();
+	if (!player.shieldSprite)
+	{
+		printf("Error creating shield sprite\n");
+		player.shieldTexture = NULL;
+		exit(EXIT_FAILURE);
+	}
+
 	sfSprite_setTexture(player.sprite, player.texture, sfTrue);
 	sfFloatRect playerHitbox = sfSprite_getLocalBounds(player.sprite);
 	sfSprite_setOrigin(player.sprite, (sfVector2f) { playerHitbox.width / 2, playerHitbox.height / 2 });
 	sfSprite_setPosition(player.sprite, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
 
+	sfSprite_setTexture(player.shieldSprite, player.shieldTexture, sfTrue);
+	sfFloatRect shieldHitbox = sfSprite_getLocalBounds(player.shieldSprite);
+	sfSprite_setOrigin(player.shieldSprite, (sfVector2f) { shieldHitbox.width / 2, shieldHitbox.height / 2 });
+	sfSprite_setPosition(player.shieldSprite, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
+
 	player.canShoot = sfTrue;
 	player.cooldown = FIRE_RATE;
 	player.velocity = (sfVector2f){ 0, 0 };
 	player.health = PLAYER_HEALTH;
+	player.invincibleTime = 0;
+	player.shieldActive = sfFalse;
 }
 
 void UpdatePlayer(float _dt)
@@ -45,12 +68,17 @@ void UpdatePlayer(float _dt)
 	UpdateCooldown(_dt);
 	UpdateFireControl();
 	lifeUpdate();
+	UpdateShield(_dt);
 	ColidingWithAsteroid();
 }
 
 void DrawPlayer(sfRenderWindow* const _renderWindow)
 {
 	DrawWraparound(_renderWindow, player.sprite);
+	if (player.shieldActive)
+	{
+		DrawWraparound(_renderWindow, player.shieldSprite);
+	}
 }
 
 void CleanupPlayer(void)
@@ -191,12 +219,33 @@ void ColidingWithAsteroid(void)
 
 		if (ColisionCircleCircle(playerPosition, playerHitbox.width / 2, asteroidPosition, asteroidHitbox.width / 2))
 		{
-			sfSprite_setPosition(player.sprite, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
-			player.health--;
-			if (player.health <= 0)
+			DestroyAsteroid(i);
+			if (!player.shieldActive)
 			{
-				player.health = 0;
+				sfSprite_setPosition(player.sprite, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
+				player.velocity = (sfVector2f) { 0, 0 };
+				player.health--;
+				player.shieldActive = sfTrue;
+				if (player.health <= 0)
+				{
+					player.health = 0;
+				}
 			}
+
+		}
+	}
+}
+
+void UpdateShield(float _dt)
+{
+	if (player.shieldActive)
+	{
+		sfSprite_setPosition(player.shieldSprite, sfSprite_getPosition(player.sprite));
+		player.invincibleTime += _dt;
+		if (player.invincibleTime > SHIELD_TIME)
+		{
+			player.invincibleTime = 0;
+			player.shieldActive = sfFalse;
 		}
 	}
 }

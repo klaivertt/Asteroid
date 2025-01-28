@@ -40,4 +40,5 @@ void CleanupAsteroid(void);
 
 Asteroid* GetAsteroids(void);
 int GetAsteroidNumb(void);
+void DestroyAsteroid(unsigned int _index);
 #endif // !ASTEROID_H

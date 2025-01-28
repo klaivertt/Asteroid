@@ -25,6 +25,7 @@ void LoadGame(void)
 	LoadAsteroid();
 	LoadBullet();
 	LoadHud();
+	LoadScore();
 }
 
 void KeyPressedGame(sfKeyEvent _key)
@@ -69,7 +70,6 @@ void CleanupGame(void)
 	CleanupBullet();
 	CleanupAsteroid();
 	CleanupHud();
-	CleanupScore();
 	sfSprite_destroy(backgroundSprite);
 	backgroundSprite = NULL;
 }
