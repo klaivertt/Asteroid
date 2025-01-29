@@ -98,6 +98,10 @@ void CheckBulletAsteroidCollision(void)
 			sfVector2f bulletPosition = sfSprite_getPosition(bullets[i].sprite);
 			sfFloatRect bulletHitbox = sfSprite_getGlobalBounds(bullets[i].sprite);
 
+			if (!asteroids[j].sprite)
+			{
+				continue;
+			}
 			sfVector2f asteroidPosition = sfSprite_getPosition(asteroids[j].sprite);
 			sfFloatRect asteroidHitbox = sfSprite_getGlobalBounds(asteroids[j].sprite);
 

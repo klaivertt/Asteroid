@@ -232,4 +232,3 @@ void SortAsteroideList(unsigned int _index)
 	}
 	asteroidManager.asteroidsNumb--;
 }
-

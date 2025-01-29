@@ -102,7 +102,10 @@ void SortBulletList(unsigned int _index)
 {
 	for (unsigned int i = _index; i < bulletCount - 1; i++)
 	{
+		Bullet temp = { 0 };
+		temp = bulletList[i];
 		bulletList[i] = bulletList[i + 1];
+		bulletList[i + 1] = temp;
 	}
 	bulletCount--;
 }
