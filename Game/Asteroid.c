@@ -38,6 +38,17 @@ void SetPlayerPosition(sfVector2f _position)
 void LoadAsteroid(void)
 {
 	LoadTexture();
+
+	asteroidManager.asteroidExplosionBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/ShootDestroy1.wav");
+	if (!asteroidManager.asteroidExplosionBuffer)
+	{
+		printf("Error loading asteroid explosion sound\n");
+		exit(EXIT_FAILURE);
+	}
+	
+	asteroidManager.asteroidExplosionSound = sfSound_create();
+	sfSound_setBuffer(asteroidManager.asteroidExplosionSound, asteroidManager.asteroidExplosionBuffer);
+
 	asteroidManager.currentWave = 0;
 	asteroidManager.asteroidsNumb = 0;
 	WaveCreate();
@@ -169,6 +180,7 @@ void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid)
 void AsteroidPartition(unsigned int _i)
 {
 	Asteroid* asteroid = &asteroidManager.asteroids[_i];
+	sfSound_play(asteroidManager.asteroidExplosionSound);
 	if (asteroid->size == LARGE)
 	{
 		// Create 2 medium asteroids

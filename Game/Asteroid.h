@@ -31,6 +31,8 @@ typedef struct AsteroidManager
 	sfTexture* textureSmall;
 	unsigned int currentWave;	
 	sfVector2f playerPosition;
+	sfSoundBuffer* asteroidExplosionBuffer;
+	sfSound* asteroidExplosionSound;
 }AsteroidManager;
 
 void LoadAsteroid(void);	
