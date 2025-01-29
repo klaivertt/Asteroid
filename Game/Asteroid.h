@@ -3,8 +3,6 @@
 
 #include "Common.h"
 #include "Wraparound.h"
-#include "Bullet.h"
-#include "Collision.h"
 #include "Score.h"
 
 #define ASTEROID_MAX 500
@@ -44,4 +42,5 @@ Asteroid* GetAsteroids(void);
 int GetAsteroidNumb(void);
 void DestroyAsteroid(unsigned int _index);
 void SetPlayerPosition(sfVector2f _position);
+unsigned int GetAsteroidNumber(void);
 #endif // !ASTEROID_H

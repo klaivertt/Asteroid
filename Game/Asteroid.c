@@ -7,7 +7,6 @@ void AsteroidCreate(void);
 void WaveCreate(void);
 void UpdateWave(void);
 void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid);
-void CheckBulletAsteroidCollision(unsigned int _index);
 void AsteroidPartition(unsigned int _i);
 void SortAsteroideList(unsigned int _index);
 
@@ -24,6 +23,11 @@ int GetAsteroidNumb(void)
 void DestroyAsteroid(unsigned int _index)
 {
 	AsteroidPartition(_index);
+}
+
+unsigned int GetAsteroidNumber(void)
+{
+	return asteroidManager.asteroidsNumb;
 }
 
 void SetPlayerPosition(sfVector2f _position)
@@ -44,7 +48,6 @@ void UpdateAsteroid(float _dt)
 	for (unsigned int i = 0; i < asteroidManager.asteroidsNumb; i++)
 	{
 		UpdateAsteroidPosition(_dt, &asteroidManager.asteroids[i]);
-		CheckBulletAsteroidCollision(i);
 	}
 	UpdateWave();
 }
@@ -106,7 +109,7 @@ void AsteroidCreate(void)
 
 	sfVector2f position = (sfVector2f){ 0,0 };
 	do {
-		position = (sfVector2f) { (float)(rand() % SCREEN_WIDTH), (float)(rand() % SCREEN_HEIGHT) };
+		position = (sfVector2f){ (float)(rand() % SCREEN_WIDTH), (float)(rand() % SCREEN_HEIGHT) };
 	} while (sqrt(pow(position.x - asteroidManager.playerPosition.x, 2) + pow(position.y - asteroidManager.playerPosition.y, 2)) < 100);
 
 	sfSprite_setPosition(asteroid->sprite, position);
@@ -143,7 +146,7 @@ void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid)
 {
 	sfSprite_rotate(_asteroid->sprite, _asteroid->rotation * _dt);
 	sfSprite_move(_asteroid->sprite, (sfVector2f) { _asteroid->velocity.x* _dt, _asteroid->velocity.y* _dt });
-	
+
 	sfVector2f asteroidPosition = sfSprite_getPosition(_asteroid->sprite);
 	if (asteroidPosition.x < 0)
 	{
@@ -160,35 +163,6 @@ void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid)
 	else if (asteroidPosition.y > SCREEN_HEIGHT)
 	{
 		sfSprite_setPosition(_asteroid->sprite, (sfVector2f) { asteroidPosition.x, 0 });
-	}
-}
-
-void CheckBulletAsteroidCollision(unsigned int _index)
-{
-	Bullet* bullets = GetBullets();
-	unsigned int bulletNumb = GetBulletNumb();
-
-	for (unsigned int i = 0; i < bulletNumb; i++)
-	{
-		if (!asteroidManager.asteroids[_index].sprite || !bullets[i].sprite)
-		{
-			continue;
-		}
-
-		sfFloatRect asteroidHitbox = sfSprite_getGlobalBounds(asteroidManager.asteroids[_index].sprite);
-		sfFloatRect bulletHitbox = sfSprite_getGlobalBounds(bullets[i].sprite);
-
-		sfVector2f asteroidPosition = sfSprite_getPosition(asteroidManager.asteroids[_index].sprite);
-		sfVector2f bulletPosition = sfSprite_getPosition(bullets[i].sprite);
-		if (ColisionCircleCircle(asteroidPosition, asteroidHitbox.width / 2, bulletPosition, bulletHitbox.width / 2))
-		{
-			// Handle collision
-			AsteroidPartition(_index);
-			// Remove bullet
-			RemoveBullet(i);
-			i--;
-			break;
-		}
 	}
 }
 
@@ -258,3 +232,4 @@ void SortAsteroideList(unsigned int _index)
 	}
 	asteroidManager.asteroidsNumb--;
 }
+

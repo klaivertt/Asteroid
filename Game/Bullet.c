@@ -52,8 +52,12 @@ void UpdateBullet(float _dt)
 
 void DrawBullet(sfRenderWindow* const _renderWindow)
 {
-	for (unsigned int i = 0; i < bulletCount; i++)
+	for (int i = bulletCount - 1; i >= 0; i--)
 	{
+		if (!bulletList[i].sprite)
+		{
+			continue;
+		}
 		sfRenderWindow_drawSprite(_renderWindow, bulletList[i].sprite, NULL);
 	}
 }
@@ -63,7 +67,7 @@ void CleanupBullet(void)
 	sfTexture_destroy(bulletTexture);
 	bulletTexture = NULL;
 
-	for (unsigned int i = 0; i < bulletCount; i++)
+	for (int i = bulletCount - 1; i >= 0; i--)
 	{
 		sfSprite_destroy(bulletList[i].sprite);
 		bulletList[i].sprite = NULL;
@@ -98,12 +102,8 @@ void SortBulletList(unsigned int _index)
 {
 	for (unsigned int i = _index; i < bulletCount - 1; i++)
 	{
-		Bullet temp = { 0 };
-		temp = bulletList[i];
 		bulletList[i] = bulletList[i + 1];
-		bulletList[i + 1] = temp;
 	}
-
 	bulletCount--;
 }
 
@@ -117,5 +117,4 @@ void RemoveBullet(unsigned int _i)
 	sfSprite_destroy(bulletList[_i].sprite);
 	bulletList[_i].sprite = NULL;
 	SortBulletList(_i);
-	bulletCount--;
 }
