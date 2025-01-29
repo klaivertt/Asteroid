@@ -28,6 +28,12 @@ typedef struct Player
 	sfTexture* shieldTexture;
 	sfSprite* shieldSprite;
 	sfBool shieldActive;
+	sfSoundBuffer* deathBuffer;
+	sfSound* deathSound;
+	sfSoundBuffer* bufferShoot;
+	sfSound* shootSound;
+	sfSoundBuffer* bufferLifeUp;
+	sfSound* lifeUpSound;
 }Player;
 
 //* @brief Function to get the player's health.

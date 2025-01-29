@@ -2,6 +2,8 @@
 
 Player player;
 
+void LoadSprite(void);
+void LoadSound(void);
 void MovePlayer(float _dt);
 void UpdateCooldown(float _dt);
 void UpdateFireControl(void);
@@ -16,6 +18,48 @@ int GetPlayerHealth(void)
 
 
 void LoadPlayer(void)
+{
+	LoadSprite();
+	LoadSound();
+
+	player.canShoot = sfTrue;
+	player.cooldown = FIRE_RATE;
+	player.velocity = (sfVector2f){ 0, 0 };
+	player.health = PLAYER_HEALTH;
+	player.invincibleTime = 0;
+	player.shieldActive = sfFalse;
+}
+
+void UpdatePlayer(float _dt)
+{
+	MovePlayer(_dt);
+	SetPlayerPosition(sfSprite_getPosition(player.sprite));
+	UpdateCooldown(_dt);
+	UpdateFireControl();
+	lifeUpdate();
+	UpdateShield(_dt);
+	ColidingWithAsteroid();
+}
+
+void DrawPlayer(sfRenderWindow* const _renderWindow)
+{
+	DrawWraparound(_renderWindow, player.sprite);
+	if (player.shieldActive)
+	{
+		DrawWraparound(_renderWindow, player.shieldSprite);
+	}
+}
+
+void CleanupPlayer(void)
+{
+	sfTexture_destroy(player.texture);
+	player.texture = NULL;
+
+	sfSprite_destroy(player.sprite);
+	player.sprite = NULL;
+}
+
+void LoadSprite(void)
 {
 	player.texture = sfTexture_createFromFile("Assets/Sprites/Ship/3.png", NULL);
 	if (!player.texture)
@@ -54,42 +98,58 @@ void LoadPlayer(void)
 	sfFloatRect shieldHitbox = sfSprite_getLocalBounds(player.shieldSprite);
 	sfSprite_setOrigin(player.shieldSprite, (sfVector2f) { shieldHitbox.width / 2, shieldHitbox.height / 2 });
 	sfSprite_setPosition(player.shieldSprite, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
-
-	player.canShoot = sfTrue;
-	player.cooldown = FIRE_RATE;
-	player.velocity = (sfVector2f){ 0, 0 };
-	player.health = PLAYER_HEALTH;
-	player.invincibleTime = 0;
-	player.shieldActive = sfFalse;
 }
 
-void UpdatePlayer(float _dt)
+void LoadSound(void)
 {
-	MovePlayer(_dt);
-	SetPlayerPosition(sfSprite_getPosition(player.sprite));
-	UpdateCooldown(_dt);
-	UpdateFireControl();
-	lifeUpdate();
-	UpdateShield(_dt);
-	ColidingWithAsteroid();
-}
-
-void DrawPlayer(sfRenderWindow* const _renderWindow)
-{
-	DrawWraparound(_renderWindow, player.sprite);
-	if (player.shieldActive)
+	player.deathBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/Death.wav");
+	if (!player.deathBuffer)
 	{
-		DrawWraparound(_renderWindow, player.shieldSprite);
+		printf("Error loading death sound\n");
+		exit(EXIT_FAILURE);
 	}
-}
+	player.deathSound = sfSound_create();
+	if (!player.deathSound)
+	{
+		printf("Error creating death sound\n");
+		player.deathBuffer = NULL;
+		exit(EXIT_FAILURE);
+	}
+	sfSound_setBuffer(player.deathSound, player.deathBuffer);
 
-void CleanupPlayer(void)
-{
-	sfTexture_destroy(player.texture);
-	player.texture = NULL;
+	player.bufferShoot = sfSoundBuffer_createFromFile("Assets/Sounds/2.wav");
+	if (!player.bufferShoot)
+	{
+		printf("Error loading shoot sound\n");
+		exit(EXIT_FAILURE);
+	}
 
-	sfSprite_destroy(player.sprite);
-	player.sprite = NULL;
+	player.shootSound = sfSound_create();
+	sfSound_setVolume(player.shootSound, 70);
+
+	if (!player.shootSound)
+	{
+		printf("Error creating shoot sound\n");
+		player.bufferShoot = NULL;
+		exit(EXIT_FAILURE);
+	}
+	sfSound_setBuffer(player.shootSound, player.bufferShoot);
+
+	player.bufferLifeUp = sfSoundBuffer_createFromFile("Assets/Sounds/Gold1.wav");
+	if (!player.bufferLifeUp)
+	{
+		printf("Error loading life up sound\n");
+		exit(EXIT_FAILURE);
+	}
+
+	player.lifeUpSound = sfSound_create();
+	if (!player.lifeUpSound)
+	{
+		printf("Error creating life up sound\n");
+		player.bufferLifeUp = NULL;
+		exit(EXIT_FAILURE);
+	}
+	sfSound_setBuffer(player.lifeUpSound, player.bufferLifeUp);
 }
 
 void MovePlayer(float _dt)
@@ -182,6 +242,7 @@ void UpdateFireControl(void)
 			-cosf(sfSprite_getRotation(player.sprite) * (float)(M_PI / 180))
 			};
 			AddBullet(shotPosition, direction);
+			sfSound_play(player.shootSound);
 
 			player.canShoot = sfFalse;
 		}
@@ -193,6 +254,12 @@ void lifeUpdate(void)
 	if (GetScoreLife() > 5000)
 	{
 		RemovetScoreLife();
+
+		if (player.health < PLAYER_MAX_HEALTH)
+		{
+			sfSound_play(player.lifeUpSound);
+		}
+
 		player.health++;
 		if (player.health > PLAYER_MAX_HEALTH)
 		{
@@ -228,6 +295,7 @@ void ColidingWithAsteroid(void)
 				player.velocity = (sfVector2f) { 0, 0 };
 				player.health--;
 				player.shieldActive = sfTrue;
+				sfSound_play(player.deathSound);
 				if (player.health <= 0)
 				{
 					player.health = 0;

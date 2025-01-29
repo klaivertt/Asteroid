@@ -110,7 +110,7 @@ void AsteroidCreate(void)
 	sfVector2f position = (sfVector2f){ 0,0 };
 	do {
 		position = (sfVector2f){ (float)(rand() % SCREEN_WIDTH), (float)(rand() % SCREEN_HEIGHT) };
-	} while (sqrt(pow(position.x - asteroidManager.playerPosition.x, 2) + pow(position.y - asteroidManager.playerPosition.y, 2)) < 100);
+	} while (sqrt(pow(position.x - asteroidManager.playerPosition.x, 2) + pow(position.y - asteroidManager.playerPosition.y, 2)) < 150);
 
 	sfSprite_setPosition(asteroid->sprite, position);
 	sfSprite_setRotation(asteroid->sprite, (float)(rand() % 360));
