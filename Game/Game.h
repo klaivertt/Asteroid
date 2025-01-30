@@ -11,6 +11,7 @@
 #include "HUD.h"
 #include "Asteroid.h"
 #include "Score.h"
+#include "Explosion.h"
 
 //* @brief Load the game
 void LoadGame(void);

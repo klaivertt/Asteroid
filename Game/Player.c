@@ -10,11 +10,23 @@ void UpdateFireControl(void);
 void lifeUpdate(void);
 void ColidingWithAsteroid(void);
 void UpdateShield(float _dt);
+void UpdatePurple(void);
 
 int GetPlayerHealth(void)
 {
 	return player.health;
 }
+
+void IncreasePurple()
+{
+	player.purpleCharge++;
+}
+
+int GetPurple()
+{
+	return player.purpleCharge;
+}
+
 void LoadPlayer(void)
 {
 	LoadSprite();
@@ -26,6 +38,8 @@ void LoadPlayer(void)
 	player.health = PLAYER_HEALTH;
 	player.invincibleTime = 0;
 	player.shieldActive = sfFalse;
+	player.purpleCharge = 0;
+	player.purpleAvailable = sfFalse;
 }
 
 void UpdatePlayer(float _dt)
@@ -123,7 +137,7 @@ void LoadSound(void)
 	}
 
 	player.shootSound = sfSound_create();
-	sfSound_setVolume(player.shootSound, 70);
+	sfSound_setVolume(player.shootSound, 60);
 
 	if (!player.shootSound)
 	{
@@ -269,7 +283,7 @@ void lifeUpdate(void)
 void ColidingWithAsteroid(void)
 {
 	Asteroid* asteroids = GetAsteroids();
-	unsigned int asteroidNumb = GetAsteroidNumb();
+	unsigned int asteroidNumb = GetAsteroidNumber();
 
 	for (unsigned int i = 0; i < asteroidNumb; i++)
 	{
@@ -284,8 +298,9 @@ void ColidingWithAsteroid(void)
 		sfVector2f playerPosition = sfSprite_getPosition(player.sprite);
 		sfVector2f asteroidPosition = sfSprite_getPosition(asteroids[i].sprite);
 
-		if (ColisionCircleCircle(playerPosition, playerHitbox.width / 2, asteroidPosition, asteroidHitbox.width / 2))
+		if (ColisionCircleCircle(playerPosition, playerHitbox.width / 2 - 17, asteroidPosition, asteroidHitbox.width / 2 - 10))
 		{
+			player.purpleCharge++;
 			DestroyAsteroid(i);
 			if (!player.shieldActive)
 			{
@@ -314,6 +329,22 @@ void UpdateShield(float _dt)
 		{
 			player.invincibleTime = 0;
 			player.shieldActive = sfFalse;
+		}
+	}
+}
+
+void UpdatePurple(void)
+{
+	if (player.purpleCharge >= PURPLE_MAX)
+	{
+		player.purpleCharge = PURPLE_MAX;
+		player.purpleAvailable = sfTrue;
+	}
+	if (player.purpleAvailable)
+	{
+		if (sfKeyboard_isKeyPressed(sfKeyE))
+		{
+
 		}
 	}
 }

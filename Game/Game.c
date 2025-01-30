@@ -28,6 +28,7 @@ void LoadGame(void)
 	LoadBullet();
 	LoadHud();
 	LoadScore();
+	LoadExplosion();
 }
 
 void KeyPressedGame(sfKeyEvent _key)
@@ -50,6 +51,7 @@ void UpdateGame(sfRenderWindow* const _renderWindow, float _dt)
 	UpdateBullet(_dt);
 	UpdateAsteroid(_dt);
 	CheckBulletAsteroidCollision();
+	UpdateExplosion(_dt);
 	UpdateHud(_dt);
 
 	if (GetPlayerHealth() <= 0)
@@ -63,6 +65,7 @@ void DrawGame(sfRenderWindow* const _renderWindow)
 	sfRenderWindow_drawSprite(_renderWindow, backgroundSprite, NULL);
 	DrawBullet(_renderWindow);
 	DrawAsteroid(_renderWindow);
+	DrawExplosion(_renderWindow);
 	DrawPlayer(_renderWindow);
 	DrawHud(_renderWindow);
 }
@@ -73,6 +76,7 @@ void CleanupGame(void)
 	CleanupBullet();
 	CleanupAsteroid();
 	CleanupHud();
+	CleanUpExplosion();
 	sfSprite_destroy(backgroundSprite);
 	backgroundSprite = NULL;
 }
@@ -83,7 +87,7 @@ void CheckBulletAsteroidCollision(void)
 	unsigned int bulletNumb = GetBulletNumb();
 
 	Asteroid* asteroids = GetAsteroids();
-	unsigned int asteroidNum = GetAsteroidNumb();
+	unsigned int asteroidNum = GetAsteroidNumber();
 
 	if (!bullets || !asteroids)
 	{
@@ -109,7 +113,7 @@ void CheckBulletAsteroidCollision(void)
 					DestroyAsteroid(j);
 					// Remove bullet
 					RemoveBullet(i);
-					i--;
+					IncreasePurple();
 					break;
 				}
 			}

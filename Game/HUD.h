@@ -13,6 +13,13 @@ typedef struct HUDData
 	sfSprite* healthBar[PLAYER_MAX_HEALTH];
 	sfTexture* emptylLifeTexture;
 	sfTexture* fullLifeTexture;
+	sfSprite* purplePower;
+	sfTexture* purpleTexture;
+	sfSprite* bar;
+	sfTexture* barTexture;
+	sfSprite* barFull;
+	sfTexture* barFullTexture;
+
 }HUDData;
 
 //* @brief Load the HUD
@@ -28,4 +35,5 @@ void DrawHud(sfRenderWindow* const _renderWindow);
 
 //* @brief Cleanup the HUD
 void CleanupHud(void);
+
 #endif // !HUD_H

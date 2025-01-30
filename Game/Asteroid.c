@@ -15,7 +15,7 @@ Asteroid* GetAsteroids(void)
 	return asteroidManager.asteroids;
 }
 
-int GetAsteroidNumb(void)
+unsigned int GetAsteroidNumber(void)
 {
 	return asteroidManager.asteroidsNumb;
 }
@@ -23,11 +23,6 @@ int GetAsteroidNumb(void)
 void DestroyAsteroid(unsigned int _index)
 {
 	AsteroidPartition(_index);
-}
-
-unsigned int GetAsteroidNumber(void)
-{
-	return asteroidManager.asteroidsNumb;
 }
 
 void SetPlayerPosition(sfVector2f _position)
@@ -48,7 +43,7 @@ void LoadAsteroid(void)
 	
 	asteroidManager.asteroidExplosionSound = sfSound_create();
 	sfSound_setBuffer(asteroidManager.asteroidExplosionSound, asteroidManager.asteroidExplosionBuffer);
-
+	sfSound_setVolume(asteroidManager.asteroidExplosionSound, 20);
 	asteroidManager.currentWave = 0;
 	asteroidManager.asteroidsNumb = 0;
 	WaveCreate();
@@ -121,7 +116,7 @@ void AsteroidCreate(void)
 	sfVector2f position = (sfVector2f){ 0,0 };
 	do {
 		position = (sfVector2f){ (float)(rand() % SCREEN_WIDTH), (float)(rand() % SCREEN_HEIGHT) };
-	} while (sqrt(pow(position.x - asteroidManager.playerPosition.x, 2) + pow(position.y - asteroidManager.playerPosition.y, 2)) < 150);
+	} while (sqrt(pow(position.x - asteroidManager.playerPosition.x, 2) + pow(position.y - asteroidManager.playerPosition.y, 2)) < 225);
 
 	sfSprite_setPosition(asteroid->sprite, position);
 	sfSprite_setRotation(asteroid->sprite, (float)(rand() % 360));
@@ -181,6 +176,7 @@ void AsteroidPartition(unsigned int _i)
 {
 	Asteroid* asteroid = &asteroidManager.asteroids[_i];
 	sfSound_play(asteroidManager.asteroidExplosionSound);
+	CreateExplosion(sfSprite_getPosition(asteroid->sprite));
 	if (asteroid->size == LARGE)
 	{
 		// Create 2 medium asteroids
@@ -199,9 +195,6 @@ void AsteroidPartition(unsigned int _i)
 			asteroidManager.asteroidsNumb++;
 		}
 		AddScore(20);
-		sfSprite_destroy(asteroid->sprite);
-		asteroid->sprite = NULL;
-		SortAsteroideList(_i);
 	}
 	else if (asteroid->size == MEDIUM)
 	{
@@ -222,18 +215,16 @@ void AsteroidPartition(unsigned int _i)
 		}
 
 		AddScore(50);
-		sfSprite_destroy(asteroid->sprite);
-		asteroid->sprite = NULL;
-		SortAsteroideList(_i);
 	}
 	else if (asteroid->size == SMALL)
 	{
 		// Remove asteroid
 		AddScore(100);
-		sfSprite_destroy(asteroid->sprite);
-		asteroid->sprite = NULL;
-		SortAsteroideList(_i);
 	}
+
+	sfSprite_destroy(asteroid->sprite);
+	asteroid->sprite = NULL;
+	SortAsteroideList(_i);
 }
 
 void SortAsteroideList(unsigned int _index)
@@ -243,4 +234,5 @@ void SortAsteroideList(unsigned int _index)
 		asteroidManager.asteroids[i] = asteroidManager.asteroids[i + 1];
 	}
 	asteroidManager.asteroidsNumb--;
+
 }

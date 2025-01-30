@@ -69,6 +69,12 @@
     <ClCompile Include="Score.c">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Animation.c">
+      <Filter>Fichiers sources\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Explosion.c">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -115,6 +121,12 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Fichiers de ressources</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

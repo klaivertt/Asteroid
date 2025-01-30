@@ -4,6 +4,7 @@
 #include "Common.h"
 #include "Wraparound.h"
 #include "Score.h"
+#include "Explosion.h"
 
 #define ASTEROID_MAX 500
 
@@ -55,7 +56,7 @@ Asteroid* GetAsteroids(void);
 
 //* @brief Get the number of asteroids
 //* @return The number of asteroids
-int GetAsteroidNumb(void);
+unsigned int GetAsteroidNumber(void);
 
 //* @brief Destroy an asteroid
 //* @param _index The index of the asteroid
