@@ -15,8 +15,17 @@ typedef struct HUDData
 	sfTexture* fullLifeTexture;
 }HUDData;
 
+//* @brief Load the HUD
 void LoadHud(void);
+
+//* @brief Update the HUD
+//* @param _dt Delta time
 void UpdateHud(float _dt);
+
+//* @brief Draw the HUD
+//* @param _renderWindow The window to draw the HUD
 void DrawHud(sfRenderWindow* const _renderWindow);
+
+//* @brief Cleanup the HUD
 void CleanupHud(void);
 #endif // !HUD_H

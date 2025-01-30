@@ -91,29 +91,29 @@ void CheckBulletAsteroidCollision(void)
 		return;
 	}
 
-	for (int i = bulletNumb - 1; i >= 0 ; i--)
+	for (int i = bulletNumb - 1; i >= 0; i--)
 	{
 		for (int j = asteroidNum - 1; j >= 0; j--)
 		{
 			sfVector2f bulletPosition = sfSprite_getPosition(bullets[i].sprite);
 			sfFloatRect bulletHitbox = sfSprite_getGlobalBounds(bullets[i].sprite);
 
-			if (!asteroids[j].sprite)
+			if (asteroids[j].sprite)
 			{
-				continue;
-			}
-			sfVector2f asteroidPosition = sfSprite_getPosition(asteroids[j].sprite);
-			sfFloatRect asteroidHitbox = sfSprite_getGlobalBounds(asteroids[j].sprite);
+				sfVector2f asteroidPosition = sfSprite_getPosition(asteroids[j].sprite);
+				sfFloatRect asteroidHitbox = sfSprite_getGlobalBounds(asteroids[j].sprite);
 
-			if (ColisionCircleCircle(asteroidPosition, asteroidHitbox.width / 2, bulletPosition, bulletHitbox.width / 2))
-			{
-				// Handle collision
-				DestroyAsteroid(j);
-				// Remove bullet
-				RemoveBullet(i);
-				i--;
-				break;
+				if (ColisionCircleCircle(asteroidPosition, asteroidHitbox.width / 2, bulletPosition, bulletHitbox.width / 2))
+				{
+					// Handle collision
+					DestroyAsteroid(j);
+					// Remove bullet
+					RemoveBullet(i);
+					i--;
+					break;
+				}
 			}
 		}
 	}
 }
+

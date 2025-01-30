@@ -15,8 +15,6 @@ int GetPlayerHealth(void)
 {
 	return player.health;
 }
-
-
 void LoadPlayer(void)
 {
 	LoadSprite();
@@ -157,11 +155,11 @@ void MovePlayer(float _dt)
 	float rotation = 0;
 	if (sfKeyboard_isKeyPressed(sfKeyD) || sfKeyboard_isKeyPressed(sfKeyRight))
 	{
-		rotation = 300.f * _dt;
+		rotation = PLAYER_ROTATION_SPEED * _dt;
 	}
 	if (sfKeyboard_isKeyPressed(sfKeyQ) || sfKeyboard_isKeyPressed(sfKeyLeft))
 	{
-		rotation = -300.f * _dt;
+		rotation = -PLAYER_ROTATION_SPEED * _dt;
 	}
 
 	sfSprite_rotate(player.sprite, rotation);
@@ -292,7 +290,7 @@ void ColidingWithAsteroid(void)
 			if (!player.shieldActive)
 			{
 				sfSprite_setPosition(player.sprite, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
-				player.velocity = (sfVector2f) { 0, 0 };
+				player.velocity = (sfVector2f){ 0, 0 };
 				player.health--;
 				player.shieldActive = sfTrue;
 				sfSound_play(player.deathSound);

@@ -39,7 +39,7 @@ void LoadAsteroid(void)
 {
 	LoadTexture();
 
-	asteroidManager.asteroidExplosionBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/ShootDestroy1.wav");
+	asteroidManager.asteroidExplosionBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/Explosion.wav");
 	if (!asteroidManager.asteroidExplosionBuffer)
 	{
 		printf("Error loading asteroid explosion sound\n");

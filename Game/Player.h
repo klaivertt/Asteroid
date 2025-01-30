@@ -16,6 +16,8 @@
 
 #define SHIELD_TIME 5.f
 
+#define PLAYER_ROTATION_SPEED 400.f
+
 typedef struct Player
 {
 	sfTexture* texture;
@@ -40,9 +42,18 @@ typedef struct Player
 //* @return The player's health.
 int GetPlayerHealth(void);
 
+//* @brief Function to load the player.
 void LoadPlayer(void);
+
+//* @brief Function to update the player.
+//* @param _dt Delta time.
 void UpdatePlayer(float _dt);
+
+//* @brief Function to draw the player.
+//* @param _renderWindow The render window.
 void DrawPlayer(sfRenderWindow* const _renderWindow);
+
+//* @brief Function to clean up the player.
 void CleanupPlayer(void);
 
 #endif // !PLAYER_H
