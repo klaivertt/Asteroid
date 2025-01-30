@@ -7,21 +7,21 @@ void LoadHud(void)
 	hudData.textScore = InitText("Score: 0", 42, (sfVector2f) { 50, 50 });
 	if (!hudData.textScore)
 	{
-		printf("Error: Could not load text\n");
+		//printf("Error: Could not load text\n");
 		exit(EXIT_FAILURE);
 	}
 
 	hudData.emptylLifeTexture = sfTexture_createFromFile("Assets/Sprites/HUD/EmptylLife.png", NULL);
 	if (!hudData.emptylLifeTexture)
 	{
-		printf("Error: Could not load empty life texture\n");
+		//printf("Error: Could not load empty life texture\n");
 		exit(EXIT_FAILURE);
 	}
 
 	hudData.fullLifeTexture = sfTexture_createFromFile("Assets/Sprites/HUD/FullLife.png", NULL);
 	if (!hudData.fullLifeTexture)
 	{
-		printf("Error: Could not load full life texture\n");
+		//printf("Error: Could not load full life texture\n");
 		exit(EXIT_FAILURE);
 	}
 

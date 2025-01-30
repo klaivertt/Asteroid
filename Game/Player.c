@@ -62,13 +62,13 @@ void LoadSprite(void)
 	player.texture = sfTexture_createFromFile("Assets/Sprites/Ship/3.png", NULL);
 	if (!player.texture)
 	{
-		printf("Error loading player texture\n");
+		//printf("Error loading player texture\n");
 		exit(EXIT_FAILURE);
 	}
 	player.sprite = sfSprite_create();
 	if (!player.sprite)
 	{
-		printf("Error creating player sprite\n");
+		//printf("Error creating player sprite\n");
 		player.texture = NULL;
 		exit(EXIT_FAILURE);
 	}
@@ -76,13 +76,13 @@ void LoadSprite(void)
 	player.shieldTexture = sfTexture_createFromFile("Assets/Sprites/FX/Shield.png", NULL);
 	if (!player.shieldTexture)
 	{
-		printf("Error loading shield texture\n");
+		//printf("Error loading shield texture\n");
 		exit(EXIT_FAILURE);
 	}
 	player.shieldSprite = sfSprite_create();
 	if (!player.shieldSprite)
 	{
-		printf("Error creating shield sprite\n");
+		//printf("Error creating shield sprite\n");
 		player.shieldTexture = NULL;
 		exit(EXIT_FAILURE);
 	}

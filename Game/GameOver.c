@@ -7,13 +7,13 @@ void LoadGameOver(void)
 	gameOverData.texture = sfTexture_createFromFile("Assets/Sprites/Background/3b.png", NULL);
 	if (!gameOverData.texture)
 	{
-		printf("Error loading game over texture\n");
+		//printf("Error loading game over texture\n");
 		exit(EXIT_FAILURE);
 	}
 	gameOverData.sprite = sfSprite_create();
 	if (!gameOverData.sprite)
 	{
-		printf("Error creating game over sprite\n");
+		//printf("Error creating game over sprite\n");
 		gameOverData.texture = NULL;
 		exit(EXIT_FAILURE);
 	}

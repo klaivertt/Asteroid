@@ -9,13 +9,13 @@ void LoadGame(void)
 	backgroundSprite = sfSprite_create();
 	if (!backgroundSprite)
 	{
-		printf("Error creating background sprite\n");
+		//printf("Error creating background sprite\n");
 		exit(EXIT_FAILURE);
 	}
 	backgroundTexture = sfTexture_createFromFile("Assets/Sprites/Background/3b.png", NULL);
 	if (!backgroundTexture)
 	{
-		printf("Error loading background texture\n");
+		//printf("Error loading background texture\n");
 		sfSprite_destroy(backgroundSprite);
 		backgroundSprite = NULL;
 		exit(EXIT_FAILURE);
@@ -87,7 +87,7 @@ void CheckBulletAsteroidCollision(void)
 
 	if (!bullets || !asteroids)
 	{
-		printf("Error: bullets or asteroids array is NULL\n");
+		//printf("Error: bullets or asteroids array is NULL\n");
 		return;
 	}
 

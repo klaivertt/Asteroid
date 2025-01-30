@@ -40,11 +40,11 @@ void LoadAsteroid(void)
 	LoadTexture();
 
 	asteroidManager.asteroidExplosionBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/Explosion.wav");
-	if (!asteroidManager.asteroidExplosionBuffer)
-	{
-		printf("Error loading asteroid explosion sound\n");
-		exit(EXIT_FAILURE);
-	}
+	//if (!asteroidManager.asteroidExplosionBuffer)
+	//{
+	//	printf("Error loading asteroid explosion sound\n");
+	//	exit(EXIT_FAILURE);
+	//}
 	
 	asteroidManager.asteroidExplosionSound = sfSound_create();
 	sfSound_setBuffer(asteroidManager.asteroidExplosionSound, asteroidManager.asteroidExplosionBuffer);
@@ -88,25 +88,25 @@ void CleanupAsteroid(void)
 void LoadTexture(void)
 {
 	asteroidManager.textureLarge = sfTexture_createFromFile("Assets/Sprites/Background/Meteor3.png", NULL);
-	if (!asteroidManager.textureLarge)
-	{
-		printf("Error loading asteroid large texture\n");
-		exit(EXIT_FAILURE);
-	}
+	//if (!asteroidManager.textureLarge)
+	//{
+	//	printf("Error loading asteroid large texture\n");
+	//	exit(EXIT_FAILURE);
+	//}
 
 	asteroidManager.textureMedium = sfTexture_createFromFile("Assets/Sprites/Background/Meteor4.png", NULL);
-	if (!asteroidManager.textureMedium)
-	{
-		printf("Error loading asteroid medium texture\n");
-		exit(EXIT_FAILURE);
-	}
+	//if (!asteroidManager.textureMedium)
+	//{
+	//	printf("Error loading asteroid medium texture\n");
+	//	exit(EXIT_FAILURE);
+	//}
 
 	asteroidManager.textureSmall = sfTexture_createFromFile("Assets/Sprites/Background/Meteor5.png", NULL);
-	if (!asteroidManager.textureSmall)
-	{
-		printf("Error loading asteroid small texture\n");
-		exit(EXIT_FAILURE);
-	}
+	//if (!asteroidManager.textureSmall)
+	//{
+	//	printf("Error loading asteroid small texture\n");
+	//	exit(EXIT_FAILURE);
+	//}
 }
 
 void AsteroidCreate(void)

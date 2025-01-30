@@ -7,7 +7,7 @@ void LoadMenu(void)
 	menuData.texture = sfTexture_createFromFile("Assets/Sprites/Background/3b.png", NULL);
 	if (!menuData.texture)
 	{
-		printf("Error loading menu texture\n");
+		//printf("Error loading menu texture\n");
 		return;
 	}
 	menuData.sprite = sfSprite_create();
@@ -19,7 +19,7 @@ void LoadMenu(void)
 	menuData.title = InitText(GAME_NAME, 72, (sfVector2f) { (SCREEN_WIDTH / 2), 100 });
 	if (!menuData.title)
 	{
-		printf("Error loading menu title\n");
+		//printf("Error loading menu title\n");
 		return;
 	}
 	SetTextOrigin(menuData.title, (sfVector2f) { 2, 2 });
@@ -27,7 +27,7 @@ void LoadMenu(void)
 	menuData.play = InitText("Press 'Space' to Play", 38, (sfVector2f) { (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) });
 	if (!menuData.play)
 	{
-		printf("Error loading menu play text\n");
+		//printf("Error loading menu play text\n");
 		return;
 	}
 	SetTextOrigin(menuData.play, (sfVector2f) { 2, 2 });
@@ -35,7 +35,7 @@ void LoadMenu(void)
 	menuData.exit = InitText("Press 'Escape' to Exit", 38, (sfVector2f) { (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 250 });
 	if (!menuData.exit)
 	{
-		printf("Error loading menu exit text\n");
+		//printf("Error loading menu exit text\n");
 		return;
 	}
 	SetTextOrigin(menuData.exit, (sfVector2f) { 2, 2 });
