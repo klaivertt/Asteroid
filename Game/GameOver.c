@@ -26,8 +26,8 @@ void LoadGameOver(void)
 	gameOverData.gameOverText = InitText("Game Over", 65, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT * 0.3f });
 	gameOverData.scoreText = InitTextWithValue("Score: %d", GetScore(), 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
 	gameOverData.highScoreText = InitTextWithValue("High Score: %d", GetHighScore(), 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50 });
-	gameOverData.pressSpaceText = InitText("Press Space to Play Again", 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 100 });
-	gameOverData.pressEscapeText = InitText("Press Escape to Return to Menu", 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 150 });
+	gameOverData.pressSpaceText = InitText("Press 'Space' to Play Again", 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 150 });
+	gameOverData.pressEscapeText = InitText("Press 'Escape' to Return to Menu", 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 200 });
 
 	SetTextOrigin(gameOverData.gameOverText, (sfVector2f) { 2, 2 });
 	SetTextOrigin(gameOverData.scoreText, (sfVector2f) { 2, 2 });
