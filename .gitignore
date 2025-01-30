@@ -2,7 +2,7 @@
 *.vsidx
 .vs
 Game/x64
-x64/Debug/Game.pdb
-x64/Debug/Game.exe
-x64/Debug/Game.lib
-x64/Debug/Game.exp
+x64/Debug/Asteroid.pdb
+x64/Debug/Asteroid.exe
+x64/Debug/Asteroid.lib
+x64/Debug/Asteroid.exp

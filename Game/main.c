@@ -158,6 +158,12 @@ void LoadMainData(MainData* const _mainData)
 	_mainData->renderWindow = sfRenderWindow_create(videoMode, GAME_NAME, sfDefaultStyle, NULL);
 	sfRenderWindow_setFramerateLimit(_mainData->renderWindow, 60);
 	sfRenderWindow_setKeyRepeatEnabled(_mainData->renderWindow, sfFalse);
+
+	sfImage* icon = sfImage_createFromFile("Assets/Sprites/Background/Meteor1.png");
+	sfVector2u size = sfImage_getSize(icon);
+	sfRenderWindow_setIcon(_mainData->renderWindow, size.x, size.y, sfImage_getPixelsPtr(icon));
+	sfImage_destroy(icon);
+	icon = NULL;
 }
 
 void CleanupMainData(MainData* const _mainData)
