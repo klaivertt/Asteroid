@@ -26,9 +26,9 @@ void LoadGame(void)
 	LoadPlayer();
 	LoadAsteroid();
 	LoadBullet();
-	LoadHud();
 	LoadScore();
 	LoadExplosion();
+	LoadHud();
 }
 
 void KeyPressedGame(sfKeyEvent _key)

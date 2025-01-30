@@ -17,7 +17,9 @@
 #define SHIELD_TIME 5.f
 
 #define PLAYER_ROTATION_SPEED 400.f
-#define PURPLE_MAX 100
+#define PURPLE_MAX 10
+#define PURPLE_ITERATION_TIME 0.2f
+#define PURPLE_REPEAT 3
 
 typedef struct Player
 {
@@ -38,7 +40,9 @@ typedef struct Player
 	sfSoundBuffer* bufferLifeUp;
 	sfSound* lifeUpSound;
 	int purpleCharge;
-	sfBool purpleAvailable;
+	sfBool purpleActivate;
+	float purpleIterationTime;
+	int purpleRepeat;
 }Player;
 
 //* @brief Function to get the player's health.

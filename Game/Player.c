@@ -10,7 +10,7 @@ void UpdateFireControl(void);
 void lifeUpdate(void);
 void ColidingWithAsteroid(void);
 void UpdateShield(float _dt);
-void UpdatePurple(void);
+void UpdatePurple(float _dt);
 
 int GetPlayerHealth(void)
 {
@@ -39,7 +39,9 @@ void LoadPlayer(void)
 	player.invincibleTime = 0;
 	player.shieldActive = sfFalse;
 	player.purpleCharge = 0;
-	player.purpleAvailable = sfFalse;
+	player.purpleActivate = sfFalse;
+	player.purpleIterationTime = PURPLE_ITERATION_TIME;
+	player.purpleRepeat = 0;
 }
 
 void UpdatePlayer(float _dt)
@@ -50,6 +52,7 @@ void UpdatePlayer(float _dt)
 	UpdateFireControl();
 	lifeUpdate();
 	UpdateShield(_dt);
+	UpdatePurple(_dt);
 	ColidingWithAsteroid();
 }
 
@@ -287,34 +290,32 @@ void ColidingWithAsteroid(void)
 
 	for (unsigned int i = 0; i < asteroidNumb; i++)
 	{
-		if (!asteroids[i].sprite)
+		if (asteroids[i].sprite)
 		{
-			continue;
-		}
+			sfFloatRect playerHitbox = sfSprite_getGlobalBounds(player.sprite);
+			sfFloatRect asteroidHitbox = sfSprite_getGlobalBounds(asteroids[i].sprite);
 
-		sfFloatRect playerHitbox = sfSprite_getGlobalBounds(player.sprite);
-		sfFloatRect asteroidHitbox = sfSprite_getGlobalBounds(asteroids[i].sprite);
+			sfVector2f playerPosition = sfSprite_getPosition(player.sprite);
+			sfVector2f asteroidPosition = sfSprite_getPosition(asteroids[i].sprite);
 
-		sfVector2f playerPosition = sfSprite_getPosition(player.sprite);
-		sfVector2f asteroidPosition = sfSprite_getPosition(asteroids[i].sprite);
-
-		if (ColisionCircleCircle(playerPosition, playerHitbox.width / 2 - 17, asteroidPosition, asteroidHitbox.width / 2 - 10))
-		{
-			player.purpleCharge++;
-			DestroyAsteroid(i);
-			if (!player.shieldActive)
+			if (ColisionCircleCircle(playerPosition, playerHitbox.width / 2 - 17, asteroidPosition, asteroidHitbox.width / 2 - 10))
 			{
-				sfSprite_setPosition(player.sprite, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
-				player.velocity = (sfVector2f){ 0, 0 };
-				player.health--;
-				player.shieldActive = sfTrue;
-				sfSound_play(player.deathSound);
-				if (player.health <= 0)
+				player.purpleCharge++;
+				DestroyAsteroid(i);
+				if (!player.shieldActive)
 				{
-					player.health = 0;
+					sfSprite_setPosition(player.sprite, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
+					player.velocity.x = 0;
+					player.velocity.y = 0;
+					player.health--;
+					player.shieldActive = sfTrue;
+					sfSound_play(player.deathSound);
+					if (player.health <= 0)
+					{
+						player.health = 0;
+					}
 				}
 			}
-
 		}
 	}
 }
@@ -333,18 +334,40 @@ void UpdateShield(float _dt)
 	}
 }
 
-void UpdatePurple(void)
+void UpdatePurple(float _dt)
 {
 	if (player.purpleCharge >= PURPLE_MAX)
 	{
 		player.purpleCharge = PURPLE_MAX;
-		player.purpleAvailable = sfTrue;
-	}
-	if (player.purpleAvailable)
-	{
 		if (sfKeyboard_isKeyPressed(sfKeyE))
 		{
+			player.purpleActivate = sfTrue;
+		}
+	}
 
+	if (player.purpleActivate)
+	{
+		player.purpleIterationTime -= _dt;
+		if (player.purpleIterationTime < 0)
+		{
+			if (player.purpleRepeat < 3)
+			{
+				Asteroid* asteroids = GetAsteroids();
+				unsigned int asteroidNumb = GetAsteroidNumber();
+				for (unsigned int j = 0; j < asteroidNumb; j++)
+				{
+					DestroyAsteroid(j);
+				}
+				player.purpleIterationTime = PURPLE_ITERATION_TIME;
+				player.purpleRepeat++;
+			}
+			else
+			{
+				player.purpleIterationTime = PURPLE_ITERATION_TIME;
+				player.purpleRepeat = 0;
+				player.purpleCharge = 0;
+				player.purpleActivate = sfFalse;
+			}
 		}
 	}
 }

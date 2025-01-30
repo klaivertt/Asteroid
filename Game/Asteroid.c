@@ -222,7 +222,11 @@ void AsteroidPartition(unsigned int _i)
 		AddScore(100);
 	}
 
-	sfSprite_destroy(asteroid->sprite);
+	if (!asteroid->sprite)
+	{
+
+		sfSprite_destroy(asteroid->sprite);
+	}
 	asteroid->sprite = NULL;
 	SortAsteroideList(_i);
 }
