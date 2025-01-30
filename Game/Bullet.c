@@ -8,7 +8,7 @@ void SortBulletList(unsigned int _index);
 
 void LoadBullet(void)
 {
-	bulletTexture = sfTexture_createFromFile("Assets/Sprites/Shoot/1.png", NULL);
+	bulletTexture = sfTexture_createFromFile("Assets/Sprites/Shoot/4.png", NULL);
 	bulletCount = 0;
 }
 

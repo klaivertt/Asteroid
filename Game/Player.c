@@ -103,13 +103,13 @@ void LoadSound(void)
 	player.deathBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/Death.wav");
 	if (!player.deathBuffer)
 	{
-		printf("Error loading death sound\n");
+		//printf("Error loading death sound\n");
 		exit(EXIT_FAILURE);
 	}
 	player.deathSound = sfSound_create();
 	if (!player.deathSound)
 	{
-		printf("Error creating death sound\n");
+		//printf("Error creating death sound\n");
 		player.deathBuffer = NULL;
 		exit(EXIT_FAILURE);
 	}
@@ -118,7 +118,7 @@ void LoadSound(void)
 	player.bufferShoot = sfSoundBuffer_createFromFile("Assets/Sounds/2.wav");
 	if (!player.bufferShoot)
 	{
-		printf("Error loading shoot sound\n");
+		//printf("Error loading shoot sound\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -127,7 +127,7 @@ void LoadSound(void)
 
 	if (!player.shootSound)
 	{
-		printf("Error creating shoot sound\n");
+		//printf("Error creating shoot sound\n");
 		player.bufferShoot = NULL;
 		exit(EXIT_FAILURE);
 	}
@@ -136,14 +136,14 @@ void LoadSound(void)
 	player.bufferLifeUp = sfSoundBuffer_createFromFile("Assets/Sounds/Gold1.wav");
 	if (!player.bufferLifeUp)
 	{
-		printf("Error loading life up sound\n");
+		//printf("Error loading life up sound\n");
 		exit(EXIT_FAILURE);
 	}
 
 	player.lifeUpSound = sfSound_create();
 	if (!player.lifeUpSound)
 	{
-		printf("Error creating life up sound\n");
+		//printf("Error creating life up sound\n");
 		player.bufferLifeUp = NULL;
 		exit(EXIT_FAILURE);
 	}
