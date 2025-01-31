@@ -34,16 +34,21 @@ void LoadAsteroid(void)
 {
 	LoadTexture();
 
-	asteroidManager.asteroidExplosionBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/Explosion.wav");
+	if (GetHollowPurpleIsActivated())
+	{
+		asteroidManager.asteroidExplosionBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/DomainExpansionInfiniteVoid.wav");
+	}
+	else
+	{
+		asteroidManager.asteroidExplosionBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/Explosion.wav");
+	}
+
 	//if (!asteroidManager.asteroidExplosionBuffer)
 	//{
 	//	printf("Error loading asteroid explosion sound\n");
 	//	exit(EXIT_FAILURE);
 	//}
 	
-	asteroidManager.asteroidExplosionSound = sfSound_create();
-	sfSound_setBuffer(asteroidManager.asteroidExplosionSound, asteroidManager.asteroidExplosionBuffer);
-	sfSound_setVolume(asteroidManager.asteroidExplosionSound, 20);
 	asteroidManager.currentWave = 0;
 	asteroidManager.asteroidsNumb = 0;
 	WaveCreate();
@@ -123,6 +128,18 @@ void AsteroidCreate(void)
 	asteroid->size = LARGE;
 	asteroid->velocity = (sfVector2f){ (float)(rand() % 300 - 150), (float)(rand() % 300 - 150) };
 	asteroid->rotation = (float)(rand() % 150 - 75);
+
+	asteroid->explosionSound = sfSound_create();
+	sfSound_setBuffer(asteroid->explosionSound, asteroidManager.asteroidExplosionBuffer);
+	if (GetHollowPurpleIsActivated())
+	{
+		sfSound_setVolume(asteroid->explosionSound, 35);
+	}
+	else
+	{
+		sfSound_setVolume(asteroid->explosionSound, 20);
+	}
+
 	asteroidManager.asteroidsNumb++;
 }
 
@@ -175,7 +192,10 @@ void UpdateAsteroidPosition(float _dt, Asteroid* _asteroid)
 void AsteroidPartition(unsigned int _i)
 {
 	Asteroid* asteroid = &asteroidManager.asteroids[_i];
-	sfSound_play(asteroidManager.asteroidExplosionSound);
+	if (asteroid->explosionSound)
+	{
+		sfSound_play(asteroid->explosionSound);
+	}
 	CreateExplosion(sfSprite_getPosition(asteroid->sprite));
 	if (asteroid->size == LARGE)
 	{
@@ -192,6 +212,17 @@ void AsteroidPartition(unsigned int _i)
 			newAsteroid->size = MEDIUM;
 			newAsteroid->velocity = (sfVector2f){ (float)(rand() % 400 - 200), (float)(rand() % 400 - 200) };
 			newAsteroid->rotation = (float)(rand() % 250 - 125);
+
+			newAsteroid->explosionSound = sfSound_create();
+			sfSound_setBuffer(newAsteroid->explosionSound, asteroidManager.asteroidExplosionBuffer);
+			if (GetHollowPurpleIsActivated())
+			{
+				sfSound_setVolume(newAsteroid->explosionSound, 35);
+			}
+			else
+			{
+				sfSound_setVolume(newAsteroid->explosionSound, 20);
+			}
 			asteroidManager.asteroidsNumb++;
 		}
 		AddScore(20);
@@ -211,6 +242,17 @@ void AsteroidPartition(unsigned int _i)
 			newAsteroid->size = SMALL;
 			newAsteroid->velocity = (sfVector2f){ (float)(rand() % 500 - 250), (float)(rand() % 500 - 250) };
 			newAsteroid->rotation = (float)(rand() % 300 - 150);
+
+			newAsteroid->explosionSound = sfSound_create();
+			sfSound_setBuffer(newAsteroid->explosionSound, asteroidManager.asteroidExplosionBuffer);
+			if (GetHollowPurpleIsActivated())
+			{
+				sfSound_setVolume(newAsteroid->explosionSound, 35);
+			}
+			else
+			{
+				sfSound_setVolume(newAsteroid->explosionSound, 20);
+			}
 			asteroidManager.asteroidsNumb++;
 		}
 

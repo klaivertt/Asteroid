@@ -5,6 +5,7 @@
 #include "Wraparound.h"
 #include "Score.h"
 #include "Explosion.h"
+#include "HollowPurple.h"
 
 #define ASTEROID_MAX 500
 
@@ -21,6 +22,7 @@ typedef struct Asteroid
 	sfVector2f velocity;
 	AsteroidSize size;
 	float rotation;
+	sfSound* explosionSound;
 }Asteroid;
 
 typedef struct AsteroidManager
@@ -33,7 +35,6 @@ typedef struct AsteroidManager
 	unsigned int currentWave;	
 	sfVector2f playerPosition;
 	sfSoundBuffer* asteroidExplosionBuffer;
-	sfSound* asteroidExplosionSound;
 }AsteroidManager;
 
 //* @brief Load the asteroid textures and sounds

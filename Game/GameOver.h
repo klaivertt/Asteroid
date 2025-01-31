@@ -5,6 +5,7 @@
 #include "GameState.h"
 #include "Text.h"
 #include "Score.h"
+#include "HollowPurple.h"
 
 
 typedef struct GameOverData
@@ -16,6 +17,7 @@ typedef struct GameOverData
 	sfText* highScoreText;
 	sfText* pressSpaceText;
 	sfText* pressEscapeText;
+	sfText* hollowPurple;
 }GameOverData;
 
 //* @brief Function to load the Game Over screen resources.

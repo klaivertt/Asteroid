@@ -12,6 +12,7 @@ typedef struct Bullet
 	sfSprite* sprite;
 	sfVector2f velocity;
 	float lifeTime;
+	sfSound* sound;
 }Bullet;
 
 //* @brief Load the bullet

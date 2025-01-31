@@ -104,18 +104,9 @@ void LoadSprite(void)
 	{
 		player.texture = sfTexture_createFromFile("Assets/Sprites/Ship/3.png", NULL);
 	}
-	if (!player.texture)
-	{
-		//printf("Error loading player texture\n");
-		exit(EXIT_FAILURE);
-	}
+
 	player.sprite = sfSprite_create();
-	if (!player.sprite)
-	{
-		//printf("Error creating player sprite\n");
-		player.texture = NULL;
-		exit(EXIT_FAILURE);
-	}
+
 
 	if (GetHollowPurpleIsActivated())
 	{
@@ -125,19 +116,7 @@ void LoadSprite(void)
 	{
 		player.shieldTexture = sfTexture_createFromFile("Assets/Sprites/FX/Shield.png", NULL);
 	}
-
-	if (!player.shieldTexture)
-	{
-		//printf("Error loading shield texture\n");
-		exit(EXIT_FAILURE);
-	}
 	player.shieldSprite = sfSprite_create();
-	if (!player.shieldSprite)
-	{
-		//printf("Error creating shield sprite\n");
-		player.shieldTexture = NULL;
-		exit(EXIT_FAILURE);
-	}
 
 	sfSprite_setTexture(player.sprite, player.texture, sfTrue);
 	sfFloatRect playerHitbox = sfSprite_getLocalBounds(player.sprite);
@@ -152,69 +131,33 @@ void LoadSprite(void)
 
 void LoadSound(void)
 {
-	player.deathBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/Death.wav");
-	if (!player.deathBuffer)
+	if (GetHollowPurpleIsActivated())
 	{
-		//printf("Error loading death sound\n");
-		exit(EXIT_FAILURE);
+		player.deathBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/goumenAmanai.wav");
+	}
+	else
+	{
+		player.deathBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/Death.wav");
 	}
 	player.deathSound = sfSound_create();
-	if (!player.deathSound)
-	{
-		//printf("Error creating death sound\n");
-		player.deathBuffer = NULL;
-		exit(EXIT_FAILURE);
-	}
 	sfSound_setBuffer(player.deathSound, player.deathBuffer);
 
-	player.bufferShoot = sfSoundBuffer_createFromFile("Assets/Sounds/2.wav");
-	if (!player.bufferShoot)
-	{
-		//printf("Error loading shoot sound\n");
-		exit(EXIT_FAILURE);
-	}
-
-	player.shootSound = sfSound_create();
-	sfSound_setVolume(player.shootSound, 60);
-
-	if (!player.shootSound)
-	{
-		//printf("Error creating shoot sound\n");
-		player.bufferShoot = NULL;
-		exit(EXIT_FAILURE);
-	}
 	sfSound_setBuffer(player.shootSound, player.bufferShoot);
 
 	player.bufferLifeUp = sfSoundBuffer_createFromFile("Assets/Sounds/Gold1.wav");
-	if (!player.bufferLifeUp)
-	{
-		//printf("Error loading life up sound\n");
-		exit(EXIT_FAILURE);
-	}
 
 	player.lifeUpSound = sfSound_create();
-	if (!player.lifeUpSound)
-	{
-		//printf("Error creating life up sound\n");
-		player.bufferLifeUp = NULL;
-		exit(EXIT_FAILURE);
-	}
 	sfSound_setBuffer(player.lifeUpSound, player.bufferLifeUp);
-
-	player.hollowPurpleBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/HollowPurple.wav");
-	if (!player.bufferLifeUp)
+	if (GetHollowPurpleIsActivated())
 	{
-		//printf("Error loading life up sound\n");
-		exit(EXIT_FAILURE);
+		player.hollowPurpleBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/Purple.wav");
+	}
+	else
+	{
+		player.hollowPurpleBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/HollowPurple.wav");
 	}
 
 	player.hollowPurpleSound = sfSound_create();
-	if (!player.hollowPurpleSound)
-	{
-		//printf("Error creating life up sound\n");
-		player.hollowPurpleBuffer = NULL;
-		exit(EXIT_FAILURE);
-	}
 	sfSound_setBuffer(player.hollowPurpleSound, player.hollowPurpleBuffer);
 
 	sfSound_setVolume(player.hollowPurpleSound, 120);
@@ -310,7 +253,6 @@ void UpdateFireControl(void)
 			-cosf(sfSprite_getRotation(player.sprite) * (float)(M_PI / 180))
 			};
 			AddBullet(shotPosition, direction);
-			sfSound_play(player.shootSound);
 
 			player.canShoot = sfFalse;
 		}

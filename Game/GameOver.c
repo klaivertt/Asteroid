@@ -26,14 +26,22 @@ void LoadGameOver(void)
 	gameOverData.gameOverText = InitText("Game Over", 65, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT * 0.3f });
 	gameOverData.scoreText = InitTextWithValue("Score: %d", GetScore(), 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 });
 	gameOverData.highScoreText = InitTextWithValue("High Score: %d", GetHighScore(), 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50 });
-	gameOverData.pressSpaceText = InitText("Press 'Space' to Play Again", 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 150 });
-	gameOverData.pressEscapeText = InitText("Press 'Escape' to Return to Menu", 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 200 });
+	gameOverData.pressSpaceText = InitText("Press 'Space' to Play Again", 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 175 });
+	gameOverData.pressEscapeText = InitText("Press 'Escape' to Return to Menu", 35, (sfVector2f) { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 225 });
 
 	SetTextOrigin(gameOverData.gameOverText, (sfVector2f) { 2, 2 });
 	SetTextOrigin(gameOverData.scoreText, (sfVector2f) { 2, 2 });
 	SetTextOrigin(gameOverData.highScoreText, (sfVector2f) { 2, 2 });
 	SetTextOrigin(gameOverData.pressSpaceText, (sfVector2f) { 2, 2 });
 	SetTextOrigin(gameOverData.pressEscapeText, (sfVector2f) { 2, 2 });
+
+	gameOverData.hollowPurple = InitText("Press 'H' for restart in Holo Purple Mode", 38, (sfVector2f) { (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 125 });
+	if (!gameOverData.hollowPurple)
+	{
+		//printf("Error loading holo purple text\n");
+		return;
+	}
+	SetTextOrigin(gameOverData.hollowPurple, (sfVector2f) { 2, 2 });
 }
 
 void KeyPressedGameOver(sfKeyEvent _key)
@@ -44,6 +52,11 @@ void KeyPressedGameOver(sfKeyEvent _key)
 		SetGameState(MENU);
 		break;
 	case sfKeySpace:
+		SetHollowPurpleIsActivated(sfFalse);
+		SetGameState(GAME);
+		break;
+	case sfKeyH:
+		SetHollowPurpleIsActivated(sfTrue);
 		SetGameState(GAME);
 		break;
 	default:
@@ -63,6 +76,7 @@ void DrawGameOver(sfRenderWindow* const _renderWindow)
 	DrawText(_renderWindow, gameOverData.highScoreText);
 	DrawText(_renderWindow, gameOverData.pressSpaceText);
 	DrawText(_renderWindow, gameOverData.pressEscapeText);
+	DrawText(_renderWindow, gameOverData.hollowPurple);
 }
 
 void CleanupGameOver(void)

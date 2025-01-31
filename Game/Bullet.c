@@ -2,6 +2,7 @@
 
 sfTexture* bulletTexture;
 Bullet bulletList[BULLET_MAX];
+sfSoundBuffer* bufferShoot;
 unsigned int bulletCount;
 
 void SortBulletList(unsigned int _index);
@@ -15,6 +16,15 @@ void LoadBullet(void)
 	else
 	{
 		bulletTexture = sfTexture_createFromFile("Assets/Sprites/Shoot/4.png", NULL);
+	}
+
+	if (GetHollowPurpleIsActivated())
+	{
+		bufferShoot = sfSoundBuffer_createFromFile("Assets/Sounds/Rikogetsshotinthehead byToji.wav");
+	}
+	else
+	{
+		bufferShoot = sfSoundBuffer_createFromFile("Assets/Sounds/2.wav");
 	}
 	bulletCount = 0;
 }
@@ -50,6 +60,8 @@ void UpdateBullet(float _dt)
 		{
 			sfSprite_destroy(bulletList[i].sprite);
 			bulletList[i].sprite = NULL;
+			sfSound_destroy(bulletList[i].sound);
+			bulletList[i].sound = NULL;
 			SortBulletList(i);
 		}
 	}
@@ -100,6 +112,17 @@ void AddBullet(sfVector2f _position, sfVector2f _direction)
 
 	newBullet.velocity = (sfVector2f){ _direction.x * BULLET_SPEED, _direction.y * BULLET_SPEED };
 
+	newBullet.sound = sfSound_create();
+	sfSound_setBuffer(newBullet.sound, bufferShoot);
+	if (GetHollowPurpleIsActivated())
+	{
+		sfSound_setVolume(newBullet.sound, 40);
+	}
+	else
+	{
+		sfSound_setVolume(newBullet.sound, 60);
+	}
+	sfSound_play(newBullet.sound);
 	newBullet.lifeTime = 2.5f;
 	bulletList[bulletCount] = newBullet;
 	bulletCount++;

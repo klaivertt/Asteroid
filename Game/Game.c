@@ -23,10 +23,18 @@ void LoadGame(void)
 	sfSprite_setTexture(gameData.backgroundSprite, gameData.backgroundTexture, sfTrue);
 	sfSprite_setScale(gameData.backgroundSprite, (sfVector2f) { 2, 2 });
 
-	gameData.music = sfMusic_createFromFile("Assets/Musics/1.ogg");
+	if (GetHollowPurpleIsActivated())
+	{
+		gameData.music = sfMusic_createFromFile("Assets/Musics/GojoSatoruTheHonoredOne.wav");
+		sfMusic_setVolume(gameData.music, 60);
+	}
+	else
+	{
+		gameData.music = sfMusic_createFromFile("Assets/Musics/1.ogg");
+		sfMusic_setVolume(gameData.music, 50);
+	}
 	sfMusic_play(gameData.music);
 	sfMusic_setLoop(gameData.music, sfTrue);
-	sfMusic_setVolume(gameData.music, 50);
 
 	LoadPlayer();
 	LoadAsteroid();
