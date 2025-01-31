@@ -83,7 +83,6 @@ void UpdateHud(float _dt)
 	sfIntRect area = sfSprite_getTextureRect(hudData.barFull);
 	sfVector2u size = sfTexture_getSize(sfSprite_getTexture(hudData.barFull));
 	area.width = size.x * GetPurple() / PURPLE_MAX;
-	printf("%d\n", GetPurple());
 	sfSprite_setTextureRect(hudData.barFull, area);
 }
 

@@ -20,6 +20,10 @@ int GetPlayerHealth(void)
 void IncreasePurple()
 {
 	player.purpleCharge++;
+	if (player.purpleCharge >= PURPLE_MAX)
+	{
+		player.purpleCharge = PURPLE_MAX;
+	}
 }
 
 int GetPurple()
@@ -165,6 +169,22 @@ void LoadSound(void)
 		exit(EXIT_FAILURE);
 	}
 	sfSound_setBuffer(player.lifeUpSound, player.bufferLifeUp);
+	
+	player.hollowPurpleBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/HollowPurple.wav");
+	if (!player.bufferLifeUp)
+	{
+		//printf("Error loading life up sound\n");
+		exit(EXIT_FAILURE);
+	}
+
+	player.hollowPurpleSound = sfSound_create();
+	if (!player.hollowPurpleSound)
+	{
+		//printf("Error creating life up sound\n");
+		player.hollowPurpleBuffer = NULL;
+		exit(EXIT_FAILURE);
+	}
+	sfSound_setBuffer(player.hollowPurpleSound, player.hollowPurpleBuffer);
 }
 
 void MovePlayer(float _dt)
@@ -338,10 +358,10 @@ void UpdatePurple(float _dt)
 {
 	if (player.purpleCharge >= PURPLE_MAX)
 	{
-		player.purpleCharge = PURPLE_MAX;
 		if (sfKeyboard_isKeyPressed(sfKeyE))
 		{
 			player.purpleActivate = sfTrue;
+			sfSound_play(player.hollowPurpleSound);
 		}
 	}
 
