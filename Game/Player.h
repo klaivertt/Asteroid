@@ -7,6 +7,7 @@
 #include "Score.h"
 #include "Collision.h"
 #include "Asteroid.h"
+#include "HollowPurple.h"
 
 #define PLAYER_BASE_SPEED 5.f
 #define MAX_ACCELERATE_FORCE 50
@@ -17,7 +18,7 @@
 #define SHIELD_TIME 5.f
 
 #define PLAYER_ROTATION_SPEED 400.f
-#define PURPLE_MAX 1
+#define PURPLE_MAX 100
 #define PURPLE_ITERATION_TIME 0.25f
 #define PURPLE_REPEAT 3
 

@@ -96,7 +96,14 @@ void CleanupPlayer(void)
 
 void LoadSprite(void)
 {
-	player.texture = sfTexture_createFromFile("Assets/Sprites/Ship/3.png", NULL);
+	if (GetHollowPurpleIsActivated())
+	{
+		player.texture = sfTexture_createFromFile("Assets/Sprites/Ship/Purple.png", NULL);
+	}
+	else
+	{
+		player.texture = sfTexture_createFromFile("Assets/Sprites/Ship/3.png", NULL);
+	}
 	if (!player.texture)
 	{
 		//printf("Error loading player texture\n");
@@ -110,7 +117,15 @@ void LoadSprite(void)
 		exit(EXIT_FAILURE);
 	}
 
-	player.shieldTexture = sfTexture_createFromFile("Assets/Sprites/FX/Shield.png", NULL);
+	if (GetHollowPurpleIsActivated())
+	{
+		player.shieldTexture = sfTexture_createFromFile("Assets/Sprites/FX/PurpleShield.png", NULL);
+	}
+	else
+	{
+		player.shieldTexture = sfTexture_createFromFile("Assets/Sprites/FX/Shield.png", NULL);
+	}
+
 	if (!player.shieldTexture)
 	{
 		//printf("Error loading shield texture\n");
@@ -201,6 +216,8 @@ void LoadSound(void)
 		exit(EXIT_FAILURE);
 	}
 	sfSound_setBuffer(player.hollowPurpleSound, player.hollowPurpleBuffer);
+
+	sfSound_setVolume(player.hollowPurpleSound, 120);
 }
 
 void MovePlayer(float _dt)
@@ -377,7 +394,7 @@ void UpdatePurple(float _dt)
 		player.purpleIterationTime -= _dt;
 		if (player.purpleIterationTime < 0)
 		{
-			if (player.purpleRepeat < 3)
+			if (player.purpleRepeat < 4)
 			{
 				Asteroid* asteroids = GetAsteroids();
 				unsigned int asteroidNumb = GetAsteroidNumber();

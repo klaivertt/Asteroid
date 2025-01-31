@@ -2,6 +2,7 @@
 #define BULLET_H
 
 #include "Common.h"
+#include "HollowPurple.h"
 
 #define BULLET_MAX 200
 #define BULLET_SPEED 650.f

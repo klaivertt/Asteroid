@@ -75,6 +75,9 @@
     <ClCompile Include="Explosion.c">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="HollowPurple.c">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common.h">
@@ -122,11 +125,14 @@
     <ClInclude Include="resource.h">
       <Filter>Fichiers de ressources</Filter>
     </ClInclude>
-    <ClInclude Include="Animations.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="HollowPurple.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
     <ClInclude Include="Explosion.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.h">
+      <Filter>Fichiers d%27en-tête\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,14 @@ void SortBulletList(unsigned int _index);
 
 void LoadBullet(void)
 {
-	bulletTexture = sfTexture_createFromFile("Assets/Sprites/Shoot/4.png", NULL);
+	if (GetHollowPurpleIsActivated())
+	{
+		bulletTexture = sfTexture_createFromFile("Assets/Sprites/Shoot/purple.png", NULL);
+	}
+	else
+	{
+		bulletTexture = sfTexture_createFromFile("Assets/Sprites/Shoot/4.png", NULL);
+	}
 	bulletCount = 0;
 }
 

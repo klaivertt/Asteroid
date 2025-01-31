@@ -11,6 +11,12 @@ void LoadHud(void)
 		exit(EXIT_FAILURE);
 	}
 
+
+	if (GetHollowPurpleIsActivated())
+	{
+		sfText_setColor(hudData.textScore, sfColor_fromRGB(160, 10, 220));
+	}
+
 	hudData.emptylLifeTexture = sfTexture_createFromFile("Assets/Sprites/HUD/EmptylLife.png", NULL);
 	if (!hudData.emptylLifeTexture)
 	{
@@ -18,11 +24,23 @@ void LoadHud(void)
 		exit(EXIT_FAILURE);
 	}
 
-	hudData.fullLifeTexture = sfTexture_createFromFile("Assets/Sprites/HUD/FullLife.png", NULL);
-	if (!hudData.fullLifeTexture)
+	if (GetHollowPurpleIsActivated())
 	{
-		//printf("Error: Could not load full life texture\n");
-		exit(EXIT_FAILURE);
+		hudData.fullLifeTexture = sfTexture_createFromFile("Assets/Sprites/HUD/PurpleFullLife.png", NULL);
+		if (!hudData.fullLifeTexture)
+		{
+			//printf("Error: Could not load full life texture\n");
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		hudData.fullLifeTexture = sfTexture_createFromFile("Assets/Sprites/HUD/FullLife.png", NULL);
+		if (!hudData.fullLifeTexture)
+		{
+			//printf("Error: Could not load full life texture\n");
+			exit(EXIT_FAILURE);
+		}
 	}
 
 	sfVector2f startPosition = { (SCREEN_WIDTH - (PLAYER_MAX_HEALTH * 75)) / 2, 30 };

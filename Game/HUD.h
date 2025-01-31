@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Text.h"
 #include "Score.h"
+#include "HollowPurple.h"
 
 typedef struct HUDData
 {

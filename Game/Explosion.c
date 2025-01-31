@@ -2,17 +2,26 @@
 
 Anim explosion[100] = { 0 };
 unsigned int explosionCount;
+sfBool isPurple;
 
 void DestroyExplosion(unsigned int _index);
 
 void LoadExplosion(void)
 {
 	explosionCount = 0;
+	isPurple = GetHollowPurpleIsActivated();
 }
 
 void CreateExplosion(sfVector2f _pos)
 {
-	CreateAnimation(&explosion[explosionCount], "Assets/Sprites/FX/Fx8.png", 7, 7, 15, sfFalse, (sfVector2f) { 0, 0 });
+	if (isPurple)
+	{
+		CreateAnimation(&explosion[explosionCount], "Assets/Sprites/FX/PurpleFx8.png", 7, 7, 15, sfFalse, (sfVector2f) { 0, 0 });
+	}
+	else
+	{
+		CreateAnimation(&explosion[explosionCount], "Assets/Sprites/FX/Fx8.png", 7, 7, 15, sfFalse, (sfVector2f) { 0, 0 });
+	}
 	sfFloatRect globalBounds = sfSprite_getGlobalBounds(explosion[explosionCount].sprite);
 	sfSprite_setOrigin(explosion[explosionCount].sprite, (sfVector2f) { globalBounds.width / 2, globalBounds.height / 2 });
 	sfSprite_setPosition(explosion[explosionCount].sprite, _pos);

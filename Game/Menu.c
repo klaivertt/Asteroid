@@ -15,7 +15,7 @@ void LoadMenu(void)
 	sfSprite_scale(menuData.sprite, (sfVector2f) { 2, 2 });
 
 	sfVector2u textureSize;
-	textureSize = sfTexture_getSize(menuData.texture);	
+	textureSize = sfTexture_getSize(menuData.texture);
 	menuData.title = InitText(GAME_NAME, 72, (sfVector2f) { (SCREEN_WIDTH / 2), 100 });
 	if (!menuData.title)
 	{
@@ -39,6 +39,14 @@ void LoadMenu(void)
 		return;
 	}
 	SetTextOrigin(menuData.exit, (sfVector2f) { 2, 2 });
+
+	menuData.hollowPurple = InitText("Press 'H' for Holo Purple Mode", 38, (sfVector2f) { (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2) + 100 });
+	if (!menuData.hollowPurple)
+	{
+		//printf("Error loading holo purple text\n");
+		return;
+	}
+	SetTextOrigin(menuData.hollowPurple, (sfVector2f) { 2, 2 });
 }
 
 void KeyPressedMenu(sfRenderWindow* const _renderWindow, sfKeyEvent _key)
@@ -49,6 +57,11 @@ void KeyPressedMenu(sfRenderWindow* const _renderWindow, sfKeyEvent _key)
 		sfRenderWindow_close(_renderWindow);
 		break;
 	case sfKeySpace:
+		SetHollowPurpleIsActivated(sfFalse);
+		SetGameState(GAME);
+		break;
+	case sfKeyH:
+		SetHollowPurpleIsActivated(sfTrue);
 		SetGameState(GAME);
 		break;
 	default:
@@ -65,6 +78,7 @@ void DrawMenu(sfRenderWindow* const _renderWindow)
 	sfRenderWindow_drawSprite(_renderWindow, menuData.sprite, NULL);
 	sfRenderWindow_drawText(_renderWindow, menuData.title, NULL);
 	sfRenderWindow_drawText(_renderWindow, menuData.play, NULL);
+	sfRenderWindow_drawText(_renderWindow, menuData.hollowPurple, NULL);
 	sfRenderWindow_drawText(_renderWindow, menuData.exit, NULL);
 }
 

@@ -4,6 +4,7 @@
 #include "Common.h"
 #include "Animations.h"
 #include "Wraparound.h"
+#include "HollowPurple.h"
 
 void LoadExplosion(void);
 void CreateExplosion(sfVector2f _pos);

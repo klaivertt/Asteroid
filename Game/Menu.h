@@ -5,6 +5,7 @@
 #include "GameState.h"
 #include "Game.h"
 #include "Text.h"
+#include "HollowPurple.h"
 
 typedef struct MenuData
 {
@@ -13,6 +14,7 @@ typedef struct MenuData
 	sfText* title;
 	sfText* play;
 	sfText* exit;
+	sfText* hollowPurple;
 }MenuData;
 
 void LoadMenu(void);

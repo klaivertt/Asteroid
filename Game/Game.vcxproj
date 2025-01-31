@@ -146,6 +146,7 @@
     <ClCompile Include="Game.c" />
     <ClCompile Include="GameOver.c" />
     <ClCompile Include="GameState.c" />
+    <ClCompile Include="HollowPurple.c" />
     <ClCompile Include="HUD.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="Menu.c" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="HollowPurple.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Player.h" />
