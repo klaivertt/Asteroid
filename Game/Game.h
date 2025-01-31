@@ -13,6 +13,13 @@
 #include "Score.h"
 #include "Explosion.h"
 
+typedef struct GameData {
+	sfSprite* backgroundSprite;
+	sfTexture* backgroundTexture;
+	sfMusic* music;
+}GameData;
+
+
 //* @brief Load the game
 void LoadGame(void);
 

@@ -17,7 +17,7 @@
 #define SHIELD_TIME 5.f
 
 #define PLAYER_ROTATION_SPEED 400.f
-#define PURPLE_MAX 10
+#define PURPLE_MAX 1
 #define PURPLE_ITERATION_TIME 0.25f
 #define PURPLE_REPEAT 3
 
@@ -59,6 +59,9 @@ int GetPurple();
 
 //* @brief Function to load the player.
 void LoadPlayer(void);
+
+
+void KeyPressedPlayer(sfKeyEvent _key);
 
 //* @brief Function to update the player.
 //* @param _dt Delta time.

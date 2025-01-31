@@ -1,27 +1,32 @@
 #include "Game.h"
 
-sfSprite* backgroundSprite;
-sfTexture* backgroundTexture;
+GameData gameData = { 0 };
+
 void CheckBulletAsteroidCollision(void);
 
 void LoadGame(void)
 {
-	backgroundSprite = sfSprite_create();
-	if (!backgroundSprite)
+	gameData.backgroundSprite = sfSprite_create();
+	if (!gameData.backgroundSprite)
 	{
 		//printf("Error creating background sprite\n");
 		exit(EXIT_FAILURE);
 	}
-	backgroundTexture = sfTexture_createFromFile("Assets/Sprites/Background/3b.png", NULL);
-	if (!backgroundTexture)
+	gameData.backgroundTexture = sfTexture_createFromFile("Assets/Sprites/Background/3b.png", NULL);
+	if (!gameData.backgroundTexture)
 	{
 		//printf("Error loading background texture\n");
-		sfSprite_destroy(backgroundSprite);
-		backgroundSprite = NULL;
+		sfSprite_destroy(gameData.backgroundSprite);
+		gameData.backgroundSprite = NULL;
 		exit(EXIT_FAILURE);
 	}
-	sfSprite_setTexture(backgroundSprite, backgroundTexture, sfTrue);
-	sfSprite_setScale(backgroundSprite, (sfVector2f) { 2, 2 });
+	sfSprite_setTexture(gameData.backgroundSprite, gameData.backgroundTexture, sfTrue);
+	sfSprite_setScale(gameData.backgroundSprite, (sfVector2f) { 2, 2 });
+
+	gameData.music = sfMusic_createFromFile("Assets/Musics/1.ogg");
+	sfMusic_play(gameData.music);
+	sfMusic_setLoop(gameData.music, sfTrue);
+	sfMusic_setVolume(gameData.music, 50);
 
 	LoadPlayer();
 	LoadAsteroid();
@@ -37,12 +42,10 @@ void KeyPressedGame(sfKeyEvent _key)
 	{
 	case sfKeyEscape:
 		SetGameState(MENU);
-		break;
-	case sfKeySpace:
-		break;
 	default:
 		break;
 	}
+	KeyPressedPlayer(_key);
 }
 
 void UpdateGame(sfRenderWindow* const _renderWindow, float _dt)
@@ -62,7 +65,7 @@ void UpdateGame(sfRenderWindow* const _renderWindow, float _dt)
 
 void DrawGame(sfRenderWindow* const _renderWindow)
 {
-	sfRenderWindow_drawSprite(_renderWindow, backgroundSprite, NULL);
+	sfRenderWindow_drawSprite(_renderWindow, gameData.backgroundSprite, NULL);
 	DrawBullet(_renderWindow);
 	DrawAsteroid(_renderWindow);
 	DrawExplosion(_renderWindow);
@@ -77,8 +80,10 @@ void CleanupGame(void)
 	CleanupAsteroid();
 	CleanupHud();
 	CleanUpExplosion();
-	sfSprite_destroy(backgroundSprite);
-	backgroundSprite = NULL;
+	sfSprite_destroy(gameData.backgroundSprite);
+	gameData.backgroundSprite = NULL;
+	sfMusic_destroy(gameData.music);
+	gameData.music = NULL;
 }
 
 void CheckBulletAsteroidCollision(void)

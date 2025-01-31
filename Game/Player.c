@@ -48,6 +48,22 @@ void LoadPlayer(void)
 	player.purpleRepeat = 0;
 }
 
+void KeyPressedPlayer(sfKeyEvent _key)
+{
+	switch (_key.code)
+	{
+	case sfKeyE:
+		if (player.purpleCharge >= PURPLE_MAX)
+		{
+			player.purpleActivate = sfTrue;
+			sfSound_play(player.hollowPurpleSound);
+		}
+		break;
+	default:
+		break;
+	}
+}
+
 void UpdatePlayer(float _dt)
 {
 	MovePlayer(_dt);
@@ -169,7 +185,7 @@ void LoadSound(void)
 		exit(EXIT_FAILURE);
 	}
 	sfSound_setBuffer(player.lifeUpSound, player.bufferLifeUp);
-	
+
 	player.hollowPurpleBuffer = sfSoundBuffer_createFromFile("Assets/Sounds/HollowPurple.wav");
 	if (!player.bufferLifeUp)
 	{
@@ -318,7 +334,7 @@ void ColidingWithAsteroid(void)
 			sfVector2f playerPosition = sfSprite_getPosition(player.sprite);
 			sfVector2f asteroidPosition = sfSprite_getPosition(asteroids[i].sprite);
 
-			if (ColisionCircleCircle(playerPosition, playerHitbox.width / 2 - 17, asteroidPosition, asteroidHitbox.width / 2 - 10))
+			if (ColisionCircleCircle(playerPosition, playerHitbox.width / 2 - 17, asteroidPosition, asteroidHitbox.width / 2 - 7))
 			{
 				player.purpleCharge++;
 				DestroyAsteroid(i);
@@ -356,15 +372,6 @@ void UpdateShield(float _dt)
 
 void UpdatePurple(float _dt)
 {
-	if (player.purpleCharge >= PURPLE_MAX)
-	{
-		if (sfKeyboard_isKeyPressed(sfKeyE))
-		{
-			player.purpleActivate = sfTrue;
-			sfSound_play(player.hollowPurpleSound);
-		}
-	}
-
 	if (player.purpleActivate)
 	{
 		player.purpleIterationTime -= _dt;
